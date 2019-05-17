@@ -4,6 +4,7 @@ body {
     padding: 0;
     margin: 0;
     background-color: #f4f4f4;
+    font-family: 'Cabin', sans-serif;
 }
 
 /* Classes globais **/
@@ -94,6 +95,7 @@ header {
     text-align: center;
     color: rgb(15, 14, 14);
     border-bottom: black 1px solid;
+    font-family: 'Cabin', sans-serif;
 }
 
     #showcase h1 {
@@ -109,6 +111,7 @@ header {
 /* APOSTAS */
 #apostas {
     text-align: center;
+    font-family: 'Cabin', sans-serif;
 }
 
     #apostas h1 {
@@ -154,6 +157,7 @@ footer {
     color: #ffffff;
     background-color: rgb(22, 20, 20);
     text-align: center;
+    font-family: 'Cabin', sans-serif;
 }
 
 
@@ -168,6 +172,7 @@ footer {
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    font-family: 'Cabin', sans-serif;
 }
 
     /* The navigation menu links */
@@ -200,6 +205,7 @@ footer {
     font-size: 20px;
     color: #818181;
     display: block;
+    font-family: 'Cabin', sans-serif;
 }
 
     .menuzinho button:hover {
@@ -213,6 +219,7 @@ footer {
     text-align: center;
     color: rgb(15, 14, 14);
     border-bottom: black 1px solid;
+    font-family: 'Cabin', sans-serif;
 }
 
     #sobrenos h1 {
