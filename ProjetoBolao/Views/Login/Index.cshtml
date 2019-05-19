@@ -1,42 +1,30 @@
-﻿<div class="container">
-    <form>
-        <div class="row">
-            <div class="input-field">
-                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                <label for="first_name">First Name</label>
-            </div>
-            <div class="input-field">
-                <input id="last_name" type="text" class="validate">
-                <label for="last_name">Last Name</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field">
-                <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                <label for="disabled">Disabled</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field">
-                <input id="password" type="password" class="validate">
-                <label for="password">Password</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
-            </div>
-        </div>
-        <div class="row">
+﻿    <section id="Login">        
+        <div class="container">
+            <h1>Login</h1>
             <div>
-                This is an inline input field:
-                <div class="input-field inline">
-                    <input id="email_inline" type="email" class="validate">
-                    <label for="email_inline">Email</label>
-                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                </div>
+                <form  action="/Login/Autentica" method="post">
+                    <ul>
+                        <li><label>não tem cadastro ainda clique @Html.ActionLink("aqui", "Index", "Cadastro", null, new { @class = "nav-link" })</label></li>
+                        <li>
+                            <label class="field a-field a-field_a3 page__field">
+                                <input class="field__input a-field__input" required>
+                                <span class="a-field__label-wrap">
+                                    <span class="a-field__label">Nome</span>
+                                </span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="field a-field a-field_a3 page__field">
+                                <input class="field__input a-field__input" type="password" required>
+                                <span class="a-field__label-wrap">
+                                    <span class="a-field__label">Senha</span>
+                                </span>
+                            </label>
+                        </li>
+                        <li><button class="button" type="submit" value="Login">Login</button></li>
+                    </ul>
+                </form>
             </div>
-        </div>
-    </form>
-</div>
+        </div>        
+    </section>
+

@@ -1,0 +1,60 @@
+﻿<section id="Login">
+    <div class="container">
+        <h1>Cadastrar</h1>
+        <div>
+            <form action="/Cadastro/Cadastrar" method="post">
+                <ul>
+                    <li><label>@Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })</label></li>
+                    <li>
+                        <label class="field a-field a-field_a3 page__field">
+                            <input class="field__input a-field__input" required>
+                            <span class="a-field__label-wrap">
+                                <span class="a-field__label">Nome</span>
+                            </span>
+                        </label>
+                        <label class="field a-field a-field_a3 page__field">
+                            <input class="field__input a-field__input" id="datepicker"required>
+                            <span class="a-field__label-wrap">
+                                <span class="a-field__label">Aniversario</span>
+                            </span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="field a-field a-field_a3 page__field">
+                            <input class="field__input a-field__input" type="email" required>
+                            <span class="a-field__label-wrap">
+                                <span class="a-field__label">Email</span>
+                            </span>
+                        </label>
+                        <label class="field a-field a-field_a3 page__field">
+                            <input class="field__input a-field__input" type="email" required>
+                            <span class="a-field__label-wrap">
+                                <span class="a-field__label">Confirmar email</span>
+                            </span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="field a-field a-field_a3 page__field">
+                            <input class="field__input a-field__input" type="password" required>
+                            <span class="a-field__label-wrap">
+                                <span class="a-field__label">Senha</span>
+                            </span>
+                        </label>
+                        <label class="field a-field a-field_a3 page__field">
+                            <input class="field__input a-field__input" type="password" required>
+                            <span class="a-field__label-wrap">
+                                <span class="a-field__label">Confirmar senha</span>
+                            </span>
+                        </label>
+                    </li>
+                    <li><button class="button" type="submit" value="Cadastrar">Cadastrar</button></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+  $(calendario = function() {
+    $( "#datepicker" ).datepicker();
+  } );
+</script>
