@@ -1,30 +1,31 @@
-﻿    <section id="Login">        
-        <div class="container">
-            <h1>Login</h1>
-            <div>
-                <form  action="/Login/Autentica" method="post">
-                    <ul>
-                        <li><label>não tem cadastro ainda clique @Html.ActionLink("aqui", "Index", "Cadastro", null, new { @class = "nav-link" })</label></li>
-                        <li>
-                            <label class="field a-field a-field_a3 page__field">
-                                <input class="field__input a-field__input" required>
-                                <span class="a-field__label-wrap">
-                                    <span class="a-field__label">Nome</span>
-                                </span>
-                            </label>
-                        </li>
-                        <li>
-                            <label class="field a-field a-field_a3 page__field">
-                                <input class="field__input a-field__input" type="password" required>
-                                <span class="a-field__label-wrap">
-                                    <span class="a-field__label">Senha</span>
-                                </span>
-                            </label>
-                        </li>
-                        <li><button class="button" type="submit" value="Login">Login</button></li>
-                    </ul>
-                </form>
-            </div>
-        </div>        
-    </section>
+﻿<section id="Login">
+    <div class="container">
+        <h1>Login</h1>
+        <div>
+            <form action="/Login/Autentica" method="post">
+                <ul>
+                    <li><label>não tem cadastro ainda clique @Html.ActionLink("aqui", "Index", "Cadastro", null, new { @class = "nav-link" })</label></li>
+                    <li>
+                        <label class="field a-field a-field_a3 page__field">
+                            <input class="field__input a-field__input" id="nome" required>
+                            <span class="a-field__label-wrap">
+                                <span class="a-field__label">Nome</span>
+                            </span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="field a-field a-field_a3 page__field">
+                            <input class="field__input a-field__input" type="password" id="senha" required>
+                            <span class="a-field__label-wrap">
+                                <span class="a-field__label">Senha</span>
+                            </span>
+                        </label>
+                    </li>
+                    <li><button class="button" type="submit" value="Login" onclick="Autenticar()">Login</button></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+
 

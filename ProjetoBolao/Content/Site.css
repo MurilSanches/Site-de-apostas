@@ -447,8 +447,8 @@ LEVEL 4. SETTINGS
 */
 
 .field {
-    --fieldBorderColor: black;
-    --fieldBorderColorActive: #5C5858;
+    --fieldBorderColor: #5C5858;
+    --fieldBorderColorActive: black;
 }
 
 

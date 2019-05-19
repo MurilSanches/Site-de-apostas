@@ -17,7 +17,7 @@ namespace ProjetoBolao.Controllers
         }
 
         public ActionResult Autentica(String login, String senha)
-        {
+        {   
             UsuarioDAO dao = new UsuarioDAO();
             Usuario usu = dao.Busca(login, senha);
 
