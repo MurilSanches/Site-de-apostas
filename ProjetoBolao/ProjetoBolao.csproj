@@ -200,12 +200,16 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="DAO\JogoDAO.cs" />
     <Compile Include="DAO\SiteContext.cs" />
+    <Compile Include="DAO\TimeDAO.cs" />
     <Compile Include="Filtros\AutorizacaoFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="Models\Jogo.cs" />
+    <Compile Include="Models\Time.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

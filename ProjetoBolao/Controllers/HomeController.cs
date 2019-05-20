@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProjetoBolao.DAO;
 
 namespace Projeto2BOlao.Controllers
 {
@@ -20,6 +21,8 @@ namespace Projeto2BOlao.Controllers
 
         public ActionResult Apostas()
         {
+            JogoDAO dao = new JogoDAO();
+            ViewBag.Jogos = dao.ListaJogo();
             return View();
         }
     }
