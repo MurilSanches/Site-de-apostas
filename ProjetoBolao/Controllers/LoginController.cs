@@ -16,15 +16,15 @@ namespace ProjetoBolao.Controllers
             return View();
         }
 
-        public ActionResult Autentica(String login, String senha)
+        public ActionResult Autentica(Usuario u)
         {   
             UsuarioDAO dao = new UsuarioDAO();
-            Usuario usu = dao.Busca(login, senha);
+            Usuario usu = dao.Busca(u.Nome, u.Senha);
 
             if (usu != null)
             {
                 Session["usuarioLogado"] = usu;
-                return RedirectToAction("Index", "Aluno");
+                return RedirectToAction("Index", "Home");
             }
             else
                 return RedirectToAction("Index");

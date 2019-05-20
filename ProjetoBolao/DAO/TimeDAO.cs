@@ -36,7 +36,7 @@ namespace ProjetoBolao.DAO
 
             using (var contexto = new SiteContext())
             {
-                return time = contexto.Times.FirstOrDefault(u => u.CodTime == codigo);
+                return time = contexto.Times.FirstOrDefault(u => u.Id == codigo);
             }
         }
 

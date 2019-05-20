@@ -7,7 +7,7 @@
                     <li><label>não tem cadastro ainda clique @Html.ActionLink("aqui", "Index", "Cadastro", null, new { @class = "nav-link" })</label></li>
                     <li>
                         <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" id="nome" required>
+                            <input class="field__input a-field__input" id="nome" name="u.Nome" required>
                             <span class="a-field__label-wrap">
                                 <span class="a-field__label">Nome</span>
                             </span>
@@ -15,13 +15,13 @@
                     </li>
                     <li>
                         <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" type="password" id="senha" required>
+                            <input class="field__input a-field__input" type="password"name="u.Senha" id="senha" required>
                             <span class="a-field__label-wrap">
                                 <span class="a-field__label">Senha</span>
                             </span>
                         </label>
                     </li>
-                    <li><button class="button" type="submit" value="Login" onclick="Autenticar()">Login</button></li>
+                    <li><button class="button" type="submit" value="Login">Login</button></li>
                 </ul>
             </form>
         </div>

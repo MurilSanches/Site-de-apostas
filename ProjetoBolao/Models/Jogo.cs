@@ -7,7 +7,7 @@ namespace ProjetoBolao.Models
 {
     public class Jogo
     {
-        public int CodJogo { get; set; }
+        public int Id { get; set; }
 
         public int CodTimeA { get; set; }
 
@@ -17,6 +17,6 @@ namespace ProjetoBolao.Models
 
         public int CodTimeVitorioso { get; set; }
 
-        public bool Ocorreu { get; set; }
+        public int Ocorreu { get; set; }
     }
 }

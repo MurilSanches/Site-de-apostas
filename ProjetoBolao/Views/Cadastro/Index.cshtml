@@ -7,13 +7,13 @@
                     <li><label>@Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })</label></li>
                     <li>
                         <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" required>
+                            <input class="field__input a-field__input" name="u.Nome" required>
                             <span class="a-field__label-wrap">
                                 <span class="a-field__label">Nome</span>
                             </span>
                         </label>
                         <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" id="datepicker"required>
+                            <input class="field__input a-field__input" name="u.Data" id="datepicker"required>
                             <span class="a-field__label-wrap">
                                 <span class="a-field__label">Aniversario</span>
                             </span>
@@ -21,7 +21,7 @@
                     </li>
                     <li>
                         <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" type="email" required>
+                            <input class="field__input a-field__input" name="u.Email" type="email" required>
                             <span class="a-field__label-wrap">
                                 <span class="a-field__label">Email</span>
                             </span>
@@ -35,7 +35,7 @@
                     </li>
                     <li>
                         <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" type="password" required>
+                            <input class="field__input a-field__input" name="u.Senha" type="password" required>
                             <span class="a-field__label-wrap">
                                 <span class="a-field__label">Senha</span>
                             </span>

@@ -7,7 +7,7 @@ namespace ProjetoBolao.Models
 {
     public class Usuario
     {
-        public int CodUsuario { get; set; }
+        public int Id { get; set; }
 
         public string Nome { get; set; }
 

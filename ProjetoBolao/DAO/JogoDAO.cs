@@ -12,7 +12,7 @@ namespace ProjetoBolao.DAO
         {
             using (var contexto = new SiteContext())
             {
-                return contexto.Jogo.ToList<Jogo>();
+                return contexto.Jogo.ToList();
             }
         }
     }

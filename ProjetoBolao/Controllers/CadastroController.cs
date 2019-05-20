@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProjetoBolao.Models;
 
 namespace ProjetoBolao.Controllers
 {
@@ -14,7 +15,7 @@ namespace ProjetoBolao.Controllers
             return View();
         }
 
-        public void Cadastra()
+        public void Cadastra(Usuario u)
         {
 
         }
