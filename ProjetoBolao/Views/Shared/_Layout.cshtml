@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="~/Content/Site.css">
     <link rel="icon" href="img/icone_bolao.ico" type="image/x-icon" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Arimo|Bitter|Cabin|Noto+Sans|Rubik&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" src="~/Content/bootstrap.css" />
     <title>BETTING</title>
 </head>
 <body>
@@ -20,7 +20,17 @@
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Fechar &times;</a>
             @Html.ActionLink("Perfil", "Index", "Perfil", null, new { @class = "nav-link" })
-            @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
+            @{
+                ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["usuarioLogado"];
+                if (u == null)
+                {
+                    @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
+                }
+                else
+                {
+                    @Html.ActionLink("Olá, " + u.Nome, null, null, null, new { @class = "nav-link" })
+                }
+            }
         </div>
         <a onclick="openNav()" class="menuzinho">&#9776;</a>
         <div id="main">

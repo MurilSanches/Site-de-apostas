@@ -9,15 +9,15 @@ namespace ProjetoBolao.Models
     {
         public int Id { get; set; }
         
-        public string Nome { get; set; }
+        public string NomeTime { get; set; }
 
         public string Foto { get; set; }
 
-        public int QntVitorias { get; set; }
+        public int QntsVitorias { get; set; }
 
-        public int QntDerrotas { get; set; }
+        public int QntsDerrotas { get; set; }
 
-        public int QntEmpates { get; set; }
+        public int QntsEmpates { get; set; }
 
         public int SaldoDeGols { get; set; }
 

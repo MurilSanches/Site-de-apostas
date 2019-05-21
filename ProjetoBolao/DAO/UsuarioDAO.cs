@@ -15,5 +15,14 @@ namespace ProjetoBolao.DAO
                 return contexto.Usuario2.FirstOrDefault(u => u.Nome == login && u.Senha == senha);
             }
         }
+
+        public static void Adicionar (Usuario u)
+        {
+            using (var contexto = new SiteContext())
+            {
+                contexto.Usuario2.Add(u);
+                contexto.SaveChanges();
+            }
+        }
     }
 }

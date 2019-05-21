@@ -26,7 +26,7 @@ namespace ProjetoBolao.DAO
 
             using (var contexto = new SiteContext())
             {
-                return time = contexto.Times.FirstOrDefault(u => u.Nome == nome);
+                return time = contexto.Times.FirstOrDefault(u => u.NomeTime == nome);
             }
         }
 
