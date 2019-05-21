@@ -5,8 +5,8 @@
         </div>        
         @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
         {
-            foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
-            {
+            //foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
+            //{
                 ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
                 ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
                 <form action="/Apostas/Votar">
@@ -49,7 +49,7 @@
                         </script>
                     </div>
                 </form> 
-            }
+            //}
         }
    </div>
 </section>

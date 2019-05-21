@@ -25,17 +25,43 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Fechar &times;</a>
             @Html.ActionLink("Perfil", "Index", "Perfil", null, new { @class = "nav-link" })
             @{
-                ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["usuarioLogado"];
-                if (u == null)
-                {
-                    @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
-                }
-                else
-                {
-                    @Html.ActionLink("Olá, " + u.Nome, null, null, null, new { @class = "nav-link" })
-                }
+        ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["usuarioLogado"];
+        if (u == null)
+        {
+            @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
+}
+else
+{
+        @Html.ActionLink("Olá, " + u.Nome, null, null, null, new { @class = "nav-link" })
+}
             }
+            <div id="sidebar" class="sidenav">
+                <div class="relative">
+                    <img src="...">
+                    <div class="overlay bg-rgba-black text-white" style="padding: 30px">
+                        <img class="circle" src="avatar.jpg" width="55">
+                        <h5 class="mt-4">Emma Johnson</h5>
+                        <div class="font-14">emmajs@gmail.com</div>
+                    </div>
+                </div>
+
+                <div class="divider mt-0"></div>
+                <form action="#">
+                    <div class="input-group-icon input-group-icon-right">
+                        <button type="submit" class="btn btn-icon-only btn-flat btn-rounded input-icon input-icon-right mr-2"><i class="ti-search"></i></button>
+                        <input class="form-control form-control-line border-0" type="text" placeholder="Search" style="padding-left:30px">
+                    </div>
+                </form>
+
+                <div class="divider"></div>
+                <ul>
+                    <li><a href="#">Getting started</a></li>
+                    <li><a href="#">Installation</a></li>
+                    ...
+                </ul>
+            </div>
         </div>
+
         <a onclick="openNav()" class="menuzinho">&#9776;</a>
         <div id="main">
             <script>
@@ -48,6 +74,7 @@
                     document.getElementById("mySidenav").style.width = "0";
                     document.getElementById("main").style.marginLeft = "0";
                 }
+
     </script>
     </div>
     <div class="container">

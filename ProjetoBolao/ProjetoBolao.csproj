@@ -212,6 +212,8 @@
     <Compile Include="Models\Jogo.cs" />
     <Compile Include="Models\Time.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="DAO\VotacaoDAO.cs" />
+    <Compile Include="Models\Votacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
