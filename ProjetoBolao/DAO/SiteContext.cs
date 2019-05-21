@@ -9,6 +9,8 @@ namespace ProjetoBolao.DAO
 {
     public class SiteContext : DbContext
     {
+        public DbSet<Votacao> Votacao { get; set; }
+
         public DbSet<Usuario> Usuario2 { get; set; }
 
         public DbSet<Time> Times { get; set; }

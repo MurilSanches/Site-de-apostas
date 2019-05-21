@@ -8,7 +8,7 @@ namespace ProjetoBolao.DAO
 {
     public class JogoDAO
     {
-        public IList<Jogo> ListaJogo()
+        public static IList<Jogo> ListaJogo()
         {
             using (var contexto = new SiteContext())
             {

@@ -200,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\ApostasController.cs" />
     <Compile Include="DAO\JogoDAO.cs" />
     <Compile Include="DAO\SiteContext.cs" />
     <Compile Include="DAO\TimeDAO.cs" />
@@ -269,7 +270,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Sobre.cshtml" />
-    <Content Include="Views\Home\Apostas.cshtml" />
+    <Content Include="Views\Apostas\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
     <Content Include="Views\Cadastro\Index.cshtml" />

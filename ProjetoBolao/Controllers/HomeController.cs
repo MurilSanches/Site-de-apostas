@@ -11,18 +11,12 @@ namespace Projeto2BOlao.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Jogos = JogoDAO.ListaJogo();
             return View();
         }
 
         public ActionResult Sobre()
         {
-            return View();
-        }
-
-        public ActionResult Apostas()
-        {
-            JogoDAO dao = new JogoDAO();
-            ViewBag.Jogos = dao.ListaJogo();
             return View();
         }
     }

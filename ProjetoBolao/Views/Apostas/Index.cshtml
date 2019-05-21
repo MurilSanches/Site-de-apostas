@@ -1,0 +1,55 @@
+﻿<section id="apostas">
+    <div class="container">
+        <div id="main-col">
+            <h1>Principais apostas</h1>
+        </div>        
+        @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
+        {
+            foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
+            {
+                ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
+                ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
+                <form action="/Apostas/Votar">
+                    <div class="container-fluid">
+                        <div class="card-group">
+                            <!-- Card 1 -->
+                            <div class="card">
+                                <div class="card-header">@timeA.NomeTime</div>
+                                <div class="card-body">
+                                    <img src="@timeA.Foto" alt="Photo of sunset">
+                                </div>
+                                <div class="card-footer">                                    
+                                    <button type="submit" href="#" name="@timeA.Id @j.Id" class="btn btn-primary">Vitoria do @timeA.NomeTime</button>
+                                </div>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="card">
+                                <div class="card-header">@timeB.NomeTime</div>
+                                <div class="card-body">
+                                    <img src="@timeB.Foto" alt="Photo of sunset">
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" href="#" name="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <script>
+                            // Initialize tooltip component
+                            $(function () {
+                                $('[data-toggle="tooltip"]').tooltip()
+                            })
+
+                            // Initialize popover component
+                            $(function () {
+                                $('[data-toggle="popover"]').popover()
+                            })
+                        </script>
+                    </div>
+                </form> 
+            }
+        }
+   </div>
+</section>
