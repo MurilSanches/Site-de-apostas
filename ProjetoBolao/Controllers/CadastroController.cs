@@ -31,6 +31,7 @@ namespace ProjetoBolao.Controllers
                     ano--;
 
                 u.Idade = ano;
+                u.Foto = "../img/icone.png";
 
                 UsuarioDAO.Adicionar(u);
                 Session["usuarioLogado"] = u;

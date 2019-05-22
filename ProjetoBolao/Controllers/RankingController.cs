@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ProjetoBolao.Filtros;
-using ProjetoBolao.Models;
+using ProjetoBolao.DAO;
 
 namespace ProjetoBolao.Controllers
 {
-    [AutorizacaoFilterAttribute]
-    public class PerfilController : Controller
+    public class RankingController : Controller
     {
-        // GET: Perfil
+        // GET: Ranking
         public ActionResult Index()
         {
-            ViewBag.Usuario = (Usuario)Session["usuarioLogado"];
+            ViewBag.Usuarios = UsuarioDAO.Lista();
             return View();
         }
     }

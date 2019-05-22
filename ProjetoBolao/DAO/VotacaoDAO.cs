@@ -8,17 +8,12 @@ namespace ProjetoBolao.DAO
 {
     public class VotacaoDAO
     {
-        public static void Votar(int idTime, int idJogo, Usuario u)
+        public static void Votar(Votacao v)
         {
             using (var contexto = new SiteContext())
             {
-                Votacao v = new Votacao();
-                
-                v.CodTimeVotado = idTime;
-                v.CodJogo = idJogo;
-                v.CodUsuario = u.Id;
-
                 contexto.Votacao.Add(v);
+                contexto.SaveChanges();
             }
         }
 
@@ -35,7 +30,7 @@ namespace ProjetoBolao.DAO
             List<Votacao> lista = new List<Votacao>();
             foreach (Votacao v in Lista())
             {
-                if (v.Id == id)
+                if (v.CodUsuario == id)
                     lista.Add(v);
             }
 

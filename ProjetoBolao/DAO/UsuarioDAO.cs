@@ -16,6 +16,14 @@ namespace ProjetoBolao.DAO
             }
         }
 
+        public static IList<Usuario> Lista()
+        {
+            using (var contexto = new SiteContext())
+            {
+                return contexto.Usuario2.ToList();
+            }
+        }
+
         public static void Adicionar (Usuario u)
         {
             using (var contexto = new SiteContext())

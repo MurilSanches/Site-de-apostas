@@ -1,2 +1,71 @@
-﻿<h2>Perfil</h2>
+﻿<section id="perfil">       
+    @{ 
+        ProjetoBolao.Models.Usuario u = ViewBag.Usuario;
+        string senha = "";
+        foreach (char c in u.Senha) {
+            senha += "•";
+        }
+    }
+    <div class="container">
+        <h1>Perfil</h1>
+        <div class="image">
+            <img src="@u.Foto" />            
+        </div>   
+        <br /><br />
+        <table class="table table-hover table-bordered text-left">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>E-mail</th>
+                    <th>Senha</th>
+                    <th>Pontos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@u.Nome</td>
+                    <td>@u.Idade</td>
+                    <td>@u.Email</td>
+                    <td>@senha</td>
+                    <td>@u.qntsPontos</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <label class="navbar-brand">Configurações: </label>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="nav-link buttonNav" href="#">alterar nome</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link buttonNav" href="#">alterar e-mail</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link buttonNav" href="#">alterar foto de perfil</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link buttonNav" href="#">alterar senha</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <br />
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                       aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Escolha um arquivo</label>
+            </div>
+        </div>
+    </div>
+</section>
 

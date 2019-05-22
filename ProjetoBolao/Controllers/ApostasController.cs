@@ -5,37 +5,26 @@ using System.Web;
 using System.Web.Mvc;
 using ProjetoBolao.DAO;
 using ProjetoBolao.Models;
+using ProjetoBolao.Filtros;
 
 namespace ProjetoBolao.Controllers
 {
+    [AutorizacaoFilterAttribute]
     public class ApostasController : Controller
     {
         public ActionResult Index()
         {
             ViewBag.Jogos = JogoDAO.ListaJogo();
-
             Usuario u = (Usuario)Session["usuarioLogado"];
-
-            if (u != null)
-            {
-                ViewBag.Votos = VotacaoDAO.ListaDeVotosDoUsuario(u.Id);        
-            }
+            ViewBag.Votos = VotacaoDAO.ListaDeVotosDoUsuario(u.Id);        
             return View();
         }
 
-        public ActionResult Votar(int idTime, int idJogo)
-        {
-            if (Session["usuarioLogado"] == null)
-            {
-                return RedirectToAction("Index", "Apostas");
-            }
-            else
-            {
-                Usuario u=(Usuario)Session["usuarioLogado"];
-                VotacaoDAO.Votar(idTime, idJogo, u);               
-                return RedirectToAction("Index", "Apostas");
-            }
-
+        public ActionResult Votar(Votacao v)
+        {            
+            v.CodUsuario = ((Usuario)Session["usuarioLogado"]).Id;
+            VotacaoDAO.Votar(v);               
+            return RedirectToAction("Index", "Apostas");
         }
     }
 }

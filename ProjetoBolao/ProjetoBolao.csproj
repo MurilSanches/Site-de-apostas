@@ -201,6 +201,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ApostasController.cs" />
+    <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="DAO\JogoDAO.cs" />
     <Compile Include="DAO\SiteContext.cs" />
     <Compile Include="DAO\TimeDAO.cs" />
@@ -234,6 +235,7 @@
     <Content Include="img\dortmund.png" />
     <Content Include="img\download.jpg" />
     <Content Include="img\FCBarcelona.png" />
+    <Content Include="img\icone.png" />
     <Content Include="img\icone_bolao.ico" />
     <Content Include="img\icone_Bolao.png" />
     <Content Include="img\juventus.png" />
@@ -276,6 +278,9 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
     <Content Include="Views\Cadastro\Index.cshtml" />
+    <Content Include="Views\Shared\_Cadastro.cshtml" />
+    <Content Include="Views\Shared\_Perfil.cshtml" />
+    <Content Include="Views\Ranking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,6 +15,12 @@ namespace Projeto2BOlao.Controllers
             return View();
         }
 
+        public ActionResult Sair()
+        {
+            Session["usuarioLogado"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult Sobre()
         {
             return View();
