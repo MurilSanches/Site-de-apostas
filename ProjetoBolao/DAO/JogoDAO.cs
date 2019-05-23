@@ -15,5 +15,20 @@ namespace ProjetoBolao.DAO
                 return contexto.Jogo.ToList();
             }
         }
+
+        public static void Adiciona(int id1, int id2)
+        {
+            using (var contexto = new SiteContext())
+            {
+                Jogo j = new Jogo();
+                j.CodTimeA = id1;
+                j.CodTimeB = id2;
+                j.QntVotos = 0;
+                j.Ocorreu  = 0;
+
+                contexto.Jogo.Add(j);
+                contexto.SaveChanges();
+            }
+        }
     }
 }

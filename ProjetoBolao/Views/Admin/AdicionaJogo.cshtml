@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Perfil.cshtml";
+
+    List<ProjetoBolao.Models.Time> t = ViewBag.Times;
+}
+<section id="admin">
+    <div class="container">
+        <br /><br />
+        <h1>Adicionando jogo.....</h1>
+        <a class="nav-link" href="/Admin">&#8630; Voltar</a>
+        <br /><br />
+        <form action="/Admin/JogoNovo">
+            <div class="container-fluid">
+                <input type="hidden" name="v.CodJogo">
+                <div class="card-group">
+                    <!-- Card 1 -->
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="" alt="Foto do time" id="fotoTimeA">
+                        </div>
+                        <div class="card-footer">
+                            <select class="custom-select my-1 mr-sm-2" onchange="mudouA(this)">
+                                <option></option>
+                                @foreach (ProjetoBolao.Models.Time time in t)
+                                {
+                                    <option value="@time.Foto" name="id1">@time.NomeTime</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="card">
+                        <div class="card-body ">
+                            <img src="" alt="Foto do time" id="fotoTimeB">
+                        </div>
+                        <div class="card-footer">
+                            <select class="custom-select my-1 mr-sm-2" onchange="mudouB(this)">
+                                <option></option>
+                                @foreach (ProjetoBolao.Models.Time time in t)
+                                {
+                                    <option value="@time.Foto" name="id2">@time.NomeTime</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button class="btn btn-primary" type="submit">Adicionar</button>
+        </form>
+    </div>
+</section>
+<script>
+
+    mudouA = function (times) {
+        var time = times.options[times.selectedIndex].innerHTML;
+        var foto = times.options[times.selectedIndex].value;
+        $("#nomeTimeA").innerHTML = time;
+        $("#fotoTimeA").attr("src", foto);
+    }
+
+    mudouB = function (times) {
+        var time = times.options[times.selectedIndex].innerHTML;
+        var foto = times.options[times.selectedIndex].value;
+        $("#nomeTimeB").innerHTML = time;
+        $("#fotoTimeB").attr("src", foto);
+    }
+
+</script>

@@ -14,7 +14,10 @@ namespace ProjetoBolao.Controllers
         // GET: Perfil
         public ActionResult Index()
         {
-            ViewBag.Usuario = (Usuario)Session["usuarioLogado"];
+            Usuario u = (Usuario)Session["usuarioLogado"];
+            ViewBag.Usuario = u;
+            if (u.Id == 1)
+                return RedirectToAction("Index", "Admin");
             return View();
         }
     }

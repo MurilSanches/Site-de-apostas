@@ -22,74 +22,74 @@
             ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
             ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
             <form action="/Apostas/Votar">
-                            <div class="container-fluid">
-                            <input type="hidden" name="v.CodJogo" value="@j.Id">
-                            <div class="card-group" >
-                                <!-- Card 1 -->
-                                <div class="card">
-                                    <div class="card-header">@timeA.NomeTime</div>
-                                    <div class="card-body">
-                                        <img src="@timeA.Foto" alt="Photo of sunset">
-                                    </div>
-                                    <div class="card-footer">
-                                        @if (vot != null)
-                                        {
-                                            if (vot.CodTimeVotado == timeA.Id)
-                                            {
-
-                                                <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime &#10003;</button>
-                                            }
-                                            else
-                                            {
-                                                <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime</button>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <button type="submit" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeB.NomeTime</button>
-                                        }
-                                    </div>
-                                </div>
-                                <!-- Card 2 -->
-                                <div class="card">
-                                    <div class="card-header">@timeB.NomeTime</div>
-                                    <div class="card-body ">
-                                        <img src="@timeB.Foto" alt="Photo of sunset">
-                                    </div>
-                                    <div class="card-footer">
-                                        @if (vot != null)
-                                        {
-                                            if (vot.CodTimeVotado == timeB.Id)
-                                            {
-                                                <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
-                                            }
-                                            else
-                                            {
-                                                <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime</button>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <button type="submit" name="v.CodTimeVotado" href="#" class="btn btn-primary" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
-                                        }
-                                    </div>
-                                </div>
+                <div class="container-fluid">
+                    <input type="hidden" name="v.CodJogo" value="@j.Id">
+                    <div class="card-group">
+                        <!-- Card 1 -->
+                        <div class="card">
+                            <div class="card-header">@timeA.NomeTime</div>
+                            <div class="card-body">
+                                <img src="@timeA.Foto" alt="Photo of sunset">
                             </div>
-                            <br />
-                            <br />
-                            <br />
-                            <script>
-                                // Initialize tooltip component
-                                $(function () {
-                                    $('[data-toggle="tooltip"]').tooltip()
-                                })
+                            <div class="card-footer">
+                                @if (vot != null)
+                                {
+                                    if (vot.CodTimeVotado == timeA.Id)
+                                    {
 
-                                // Initialize popover component
-                                $(function () {
-                                    $('[data-toggle="popover"]').popover()
-                                })
-                            </script>
+                                        <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime &#10003;</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime</button>
+                                    }
+                                }
+                                else
+                                {
+                                    <button type="submit" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeB.NomeTime</button>
+                                }
+                            </div>
                         </div>
+                        <!-- Card 2 -->
+                        <div class="card">
+                            <div class="card-header">@timeB.NomeTime</div>
+                            <div class="card-body ">
+                                <img src="@timeB.Foto" alt="Photo of sunset">
+                            </div>
+                            <div class="card-footer">
+                                @if (vot != null)
+                                {
+                                    if (vot.CodTimeVotado == timeB.Id)
+                                    {
+                                        <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime</button>
+                                    }
+                                }
+                                else
+                                {
+                                    <button type="submit" name="v.CodTimeVotado" href="#" class="btn btn-primary" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <script>
+                        // Initialize tooltip component
+                        $(function () {
+                            $('[data-toggle="tooltip"]').tooltip()
+                        })
+
+                        // Initialize popover component
+                        $(function () {
+                            $('[data-toggle="popover"]').popover()
+                        })
+                    </script>
+                </div>
             </form>
         }
     </div>

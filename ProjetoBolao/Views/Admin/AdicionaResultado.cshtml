@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Perfil.cshtml";
+}
+
+<section id="admin">
+    <div class="container">
+        <br />
+        <h1>Adicionando Resultado....</h1>
+        <a class="nav-link" href="/Admin">&#8630; Voltar</a>
+        <br /><br />
+        @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
+        {
+            ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
+            ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
+            <form>
+                <div class="container-fluid">
+                    <input type="hidden" name="v.CodJogo">
+                    <div class="card-group">
+                        <!-- Card 1 -->
+                        <div class="card">
+                            <div class="card-header">@timeA.NomeTime</div>
+                            <div class="card-body">
+                                <img src="@timeA.Foto" alt="Foto do time">
+                            </div>
+                            <div class="card-footer">
+                                <label>0</label>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="card">
+                            <div class="card-header">@timeB.NomeTime</div>
+                            <div class="card-body ">
+                                <img src="@timeB.Foto" alt="Foto do time">
+                            </div>
+                            <div class="card-footer">
+                                <label>0</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Adicionar Resultado</button>
+                <br />
+                <br />
+            </form>
+        }
+    </div>
+</section>
+

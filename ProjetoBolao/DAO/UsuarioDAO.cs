@@ -23,6 +23,13 @@ namespace ProjetoBolao.DAO
                 return contexto.Usuario2.ToList();
             }
         }
+        public static Usuario returnUsuario(string s)
+        {
+            using (var contexto = new SiteContext())
+            {
+                return contexto.Usuario2.FirstOrDefault(u => u.Nome == s);
+            }
+        }
 
         public static void Adicionar (Usuario u)
         {

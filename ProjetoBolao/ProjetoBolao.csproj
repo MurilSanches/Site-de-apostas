@@ -196,6 +196,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -281,6 +282,11 @@
     <Content Include="Views\Shared\_Cadastro.cshtml" />
     <Content Include="Views\Shared\_Perfil.cshtml" />
     <Content Include="Views\Ranking\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\AdicionaJogo.cshtml" />
+    <Content Include="Views\Admin\AdicionaResultado.cshtml" />
+    <Content Include="Views\Admin\AlteraUsuario.cshtml" />
+    <Content Include="Views\Admin\AdicionaTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

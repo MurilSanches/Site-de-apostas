@@ -8,7 +8,7 @@ namespace ProjetoBolao.DAO
 {
     public class TimeDAO
     {
-        public IList<Time> ListarTimes()
+        public static IList<Time> ListarTimes()
         {
             IList<Time> lista;
 
