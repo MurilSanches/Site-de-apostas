@@ -23,7 +23,6 @@ namespace ProjetoBolao.DAO
                 Jogo j = new Jogo();
                 j.CodTimeA = id1;
                 j.CodTimeB = id2;
-                j.QntVotos = 0;
                 j.Ocorreu  = 0;
 
                 contexto.Jogo.Add(j);

@@ -12,19 +12,18 @@
         <br /><br />
         <form action="/Admin/JogoNovo">
             <div class="container-fluid">
-                <input type="hidden" name="v.CodJogo">
                 <div class="card-group">
                     <!-- Card 1 -->
                     <div class="card">
                         <div class="card-body">
                             <img src="" alt="Foto do time" id="fotoTimeA">
-                        </div>
+                        </div>                        
                         <div class="card-footer">
                             <select class="custom-select my-1 mr-sm-2" onchange="mudouA(this)">
                                 <option></option>
                                 @foreach (ProjetoBolao.Models.Time time in t)
                                 {
-                                    <option value="@time.Foto" name="id1">@time.NomeTime</option>
+                                    <option value="@time.Foto">@time.NomeTime</option>
                                 }
                             </select>
                         </div>

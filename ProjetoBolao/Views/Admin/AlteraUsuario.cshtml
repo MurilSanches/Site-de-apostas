@@ -10,7 +10,7 @@
         <h1>Alterando usuario.....</h1>
         <a class="nav-link" href="/Admin">&#8630; Voltar</a>
         <br /><br />
-        <select class="custom-select my-1 mr-sm-2" onchange="mudar(this)">
+        <select class="custom-select my-1 mr-sm-2" onchange="mudar(this)" id="nomesUsu">
             <option></option>
             @foreach (ProjetoBolao.Models.Usuario u in ViewBag.Usuarios)
             {
@@ -72,20 +72,16 @@
  </section>
 <script>
 
-    /*mudar = function (usuarios)
+    mudar = function (usuarios)
     {
-        var usuario = usuarios.options[usuarios.selectedIndex].innerHTML;
-        //string nomeUser = :usuario.toString();
-          //userSelected = ProjetoBolao.DAO.UsuarioDAO.returnUsuario(nomeUser);
-        
-
-
-        //{$("#nome").innerHTML = //userSelected.Nome;
-        //$("#senha").innerHTML = //userSelected.Senha;
-        //$("#email").innerHTML = //userSelected.Email;
-       // $("#pontos").innerHTML = //userSelected.qntsPontos;
-       // $("#idade").innerHTML = //userSelected.Idade;
-        //$("#foto").attr("src", //userSelected.Foto);
-    //}
+        $.post("/Admin/UsuarioJson", { nome: $("#nomesUsu").val() }, function (userSelected) {
+            $("#nome").html(userSelected.Nome);
+                $("#senha").html(userSelected.Senha);
+                $("#email").html(userSelected.Email);
+                $("#pontos").html(userSelected.qntsPontos);
+                $("#idade").html(userSelected.Idade);
+                $("#foto").attr("src", userSelected.Foto);
+        });
+    }
 
 </script>

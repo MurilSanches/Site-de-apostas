@@ -16,7 +16,8 @@ namespace ProjetoBolao.Controllers
         {
             ViewBag.Jogos = JogoDAO.ListaJogo();
             Usuario u = (Usuario)Session["usuarioLogado"];
-            ViewBag.Votos = VotacaoDAO.ListaDeVotosDoUsuario(u.Id);        
+            ViewBag.Votos = VotacaoDAO.ListaDeVotosDoUsuario(u.Id);
+            ViewBag.TodosOsVotos = VotacaoDAO.Lista();
             return View();
         }
 

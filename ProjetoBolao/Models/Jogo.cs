@@ -19,6 +19,5 @@ namespace ProjetoBolao.Models
 
         public int Ocorreu { get; set; }
 
-        public int QntVotos { get; set; }
     }
 }

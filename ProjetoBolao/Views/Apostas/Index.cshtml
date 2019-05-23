@@ -1,12 +1,26 @@
-﻿<section id="apostas">
+﻿@{
+    Layout = "~/Views/Shared/_Apostas.cshtml";
+    double porcentagemA = 0, porcentagemB = 0, porcentagemEmpate = 0;
+}
+
+<section id="apostas">
     <div class="container">
         <div id="main-col">
             <h1>Principais apostas</h1>
         </div>
         @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
         {
+            List<ProjetoBolao.Models.Votacao> votos = new List<ProjetoBolao.Models.Votacao>();
             ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["UsuarioLogado"];
             ProjetoBolao.Models.Votacao vot = null;
+            ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
+            ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
+
+            double qtdA = 0;
+            double qtdB = 0;
+            double qtdEmpate = 0;
+
+
             if (ViewBag.Votos != null)
             {
                 foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
@@ -17,78 +31,127 @@
                     }
 
                 }
+                foreach (ProjetoBolao.Models.Votacao v in ViewBag.TodosOsVotos)
+                {
+                    if (v.CodJogo == j.Id)
+                    {
+                        votos.Add(v);
+                    }
+                }
+
+                foreach (ProjetoBolao.Models.Votacao v in votos)
+                {
+                    if (v.CodTimeVotado == timeA.Id)
+                    {
+                        qtdA++;
+                    }
+                    else
+                    {
+                        if (v.CodTimeVotado == timeB.Id)
+                        {
+                            qtdB++;
+                        }
+                        else
+                        {
+                            qtdEmpate++;
+                        }
+                    }
+                }
+
+                porcentagemA = (qtdA / double.Parse(votos.Count() + "")) * 100;
+                porcentagemB = (qtdB / double.Parse(votos.Count() + "")) * 100;
+                porcentagemEmpate = (qtdEmpate / double.Parse(votos.Count() + "")) * 100;
             }
 
-            ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
-            ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
+
             <form action="/Apostas/Votar">
                 <div class="container-fluid">
                     <input type="hidden" name="v.CodJogo" value="@j.Id">
-                    <div class="card-group">
-                        <!-- Card 1 -->
-                        <div class="card">
-                            <div class="card-header">@timeA.NomeTime</div>
-                            <div class="card-body">
-                                <img src="@timeA.Foto" alt="Photo of sunset">
+                    <ul>
+                        <li>
+                            <div class="card-group">
+                                <!-- Card 1 -->
+                                <div class="card">
+                                    <div class="card-header">@timeA.NomeTime</div>
+                                    <div class="card-body">
+                                        <img src="@timeA.Foto" alt="Photo of sunset">
+                                    </div>
+                                </div>
+                                <!-- Card 2 -->
+                                <div class="card">
+                                    <div class="card-header">@timeB.NomeTime</div>
+                                    <div class="card-body ">
+                                        <img src="@timeB.Foto" alt="Photo of sunset">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-footer">
-                                @if (vot != null)
+                        </li>
+                        <li>
+                            <br />
+                            @if (vot != null)
+                            {
+                                if (vot.CodTimeVotado == timeA.Id)
                                 {
-                                    if (vot.CodTimeVotado == timeA.Id)
-                                    {
 
-                                        <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime &#10003;</button>
-                                    }
-                                    else
-                                    {
-                                        <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime</button>
-                                    }
+                                    <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime&#10003;</button>
                                 }
                                 else
                                 {
-                                    <button type="submit" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeB.NomeTime</button>
+                                    <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime</button>
                                 }
-                            </div>
-                        </div>
-                        <!-- Card 2 -->
-                        <div class="card">
-                            <div class="card-header">@timeB.NomeTime</div>
-                            <div class="card-body ">
-                                <img src="@timeB.Foto" alt="Photo of sunset">
-                            </div>
-                            <div class="card-footer">
-                                @if (vot != null)
+                            }
+                            else
+                            {
+                                <button type="submit" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeB.NomeTime</button>
+                            }
+                            @if (vot != null)
+                            {
+                                if (vot.CodTimeVotado == 0)
                                 {
-                                    if (vot.CodTimeVotado == timeB.Id)
-                                    {
-                                        <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
-                                    }
-                                    else
-                                    {
-                                        <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime</button>
-                                    }
+                                    <button type="submit" href="#" name="v.CodTimeVotado" disabled value="0" class="btn btn-danger">Empate &#10003;</button>
                                 }
                                 else
                                 {
-                                    <button type="submit" name="v.CodTimeVotado" href="#" class="btn btn-primary" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
+                                    <button type="submit" href="#" name="v.CodTimeVotado" disabled value="0" class="btn btn-danger">Empate</button>
                                 }
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <script>
-                        // Initialize tooltip component
-                        $(function () {
-                            $('[data-toggle="tooltip"]').tooltip()
-                        })
+                            }
+                            else
+                            {
+                                <button type="submit" name="v.CodTimeVotado" href="#" class="btn btn-danger" value="0">Empate</button>
+                            }
 
-                        // Initialize popover component
-                        $(function () {
-                            $('[data-toggle="popover"]').popover()
-                        })
-                    </script>
+                            @if (vot != null)
+                            {
+                                if (vot.CodTimeVotado == timeB.Id)
+                                {
+                                    <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime</button>
+                                }
+                                <br /><br />
+                                <div class="progress" style="height: 20px;">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
+                                        @porcentagemA%
+                                    </div>
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@porcentagemEmpate%" aria-valuemin="0" aria-valuemax="100">
+                                        @porcentagemEmpate%
+                                    </div>
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width:@porcentagemB%" aria-valuemin="0" aria-valuemax="100">
+                                        @porcentagemB%
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <button type="submit" name="v.CodTimeVotado" href="#" class="btn btn-primary" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
+                            }
+                        </li>
+                    </ul>
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </form>
         }

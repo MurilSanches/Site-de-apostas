@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjetoBolao.Filtros;
 using ProjetoBolao.DAO;
+using ProjetoBolao.Models;
 
 namespace ProjetoBolao.Controllers
 {
@@ -45,6 +46,11 @@ namespace ProjetoBolao.Controllers
         public ActionResult AlteraTime()
         {
             return View();
+        }
+
+        public JsonResult UsuarioJson(string nome)
+        {
+            return Json(UsuarioDAO.returnUsuario(nome));
         }
     }
 }
