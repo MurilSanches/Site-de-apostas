@@ -25,5 +25,10 @@ namespace Projeto2BOlao.Controllers
         {
             return View();
         }
+
+        public ActionResult Grafico()
+        {
+            return View();
+        }
     }
 }

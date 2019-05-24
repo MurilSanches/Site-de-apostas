@@ -290,6 +290,8 @@
     <Content Include="Views\Admin\AlteraUsuario.cshtml" />
     <Content Include="Views\Admin\AdicionaTime.cshtml" />
     <Content Include="Views\Shared\_Apostas.cshtml" />
+    <Content Include="Views\Home\Grafico.cshtml" />
+    <Content Include="Views\Shared\_Grafico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

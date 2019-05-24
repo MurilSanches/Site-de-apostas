@@ -1,10 +1,13 @@
-﻿
+﻿@{
+    ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["usuarioLogado"];
+}
+
 <!DOCTYPE html>
 <html>
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="~/Content/Site.css">
-    <link rel="icon" href="img/icone_bolao.ico" type="image/x-icon" /> 
+    <link rel="icon" href="img/icone_bolao.ico" type="image/x-icon" />
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
@@ -20,22 +23,44 @@
 <body>
     <header>
         <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Fechar &times;</a>
-            @Html.ActionLink("Perfil", "Index", "Perfil", null, new { @class = "nav-link" })
+
             @{
-                ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["usuarioLogado"];
-                if (u == null)
+                if (u != null)
                 {
-                    @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+                            <img src="@u.Foto" /><br />
+                            <label>Olá, @u.Nome</label><br />
+                            <label><i class="fab fa-sketch"></i> @u.qntsPontos</label>
+                        </li>
+                    </ul>
                 }
                 else
                 {
-                    @Html.ActionLink("Olá, " + u.Nome, null, null, null, new { @class = "nav-link" })
+                    <img src="~/img/icone.png" />
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+                }
+            }
+
+
+            @{
+                if (u == null)
+                {
+                    @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
+                }
+                else
+                {
+                    @Html.ActionLink("Olá, " + u.Nome, "Index", "Perfil", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
                     @Html.ActionLink("Sair ", "Sair", "Home", null, new { @class = "nav-link" })
                 }
             }
         </div>
-        <a onclick="openNav()" class="menuzinho">&#9776;</a>
+        <a onclick="openNav()" href="#" class="menuzinho">&#9776;</a>
         <div id="main">
             <script>
                 function openNav() {
@@ -58,7 +83,6 @@
                 <ul>
                     <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Apostas", "Index", "Apostas", null, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Sobre nos", "Sobre", "Home", null, new { @class = "nav-link" })</li>
                 </ul>
             </nav>

@@ -1,4 +1,7 @@
-﻿
+﻿@{
+    ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["usuarioLogado"];
+}
+
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -9,58 +12,80 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.0/css/mdb.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.1/css/mdb.min.css" rel="stylesheet">
     <title>BETTING</title>
 </head>
-    <body>
-        <header>
-            <div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Fechar &times;</a>
-                @Html.ActionLink("Perfil", "Index", "Perfil", null, new { @class = "nav-link" })
-                @{
-                    ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["usuarioLogado"];
-                    if (u == null)
-                    {
-                        @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Olá, " + u.Nome, null, null, null, new { @class = "nav-link" })
-                        @Html.ActionLink("Sair ", "Sair", "Home", null, new { @class = "nav-link" })
-                    }
-                }
-            </div>
-            <a onclick="openNav()" class="menuzinho">&#9776;</a>
-            <div id="main">
-                <script>
-                    function openNav() {
-                        document.getElementById("mySidenav").style.width = "250px";
-                        document.getElementById("main").style.marginLeft = "250px";
-                    }
+<body>
+    <header>
+        <div id="mySidenav" class="sidenav">
 
-                    function closeNav() {
-                        document.getElementById("mySidenav").style.width = "0";
-                        document.getElementById("main").style.marginLeft = "0";
-                    }
-
-                </script>
-            </div>
-            <div class="container">
-                <div id="logo">
-                    <h1><span class="highlight">BET</span>TING</h1>
-                </div>
-                <nav>
+            @{
+                if (u != null)
+                {
                     <ul>
-                        <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Apostas", "Index", "Apostas", null, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Sobre nos", "Sobre", "Home", null, new { @class = "nav-link" })</li>
+                        <li>
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+                            <img src="@u.Foto" /><br />
+                            <label>Olá, @u.Nome</label><br />
+                            <label><i class="fab fa-sketch"></i> @u.qntsPontos</label>
+                        </li>
                     </ul>
-                </nav>
+                }
+                else
+                {
+                    <img src="~/img/icone.png" />
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+                }
+            }
+
+
+            @{
+                if (u == null)
+                {
+                    @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
+                }
+                else
+                {
+                    @Html.ActionLink("Olá, " + u.Nome, "Index", "Perfil", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Sair ", "Sair", "Home", null, new { @class = "nav-link" })
+                }
+            }
+        </div>
+        <a onclick="openNav()" href="#" class="menuzinho">&#9776;</a>
+        <div id="main">
+        </div>
+        <div class="container">
+            <div id="logo">
+                <h1><span class="highlight">BET</span>TING</h1>
             </div>
-        </header>
-        @RenderBody()
-        <footer>
-            <p>BETTING, Copyright &copy; 2019</p>
-        </footer>
-    </body>
-    </html>
+            <nav>
+                <ul>
+                    <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Apostas", "Index", "Apostas", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Sobre nos", "Sobre", "Home", null, new { @class = "nav-link" })</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    @RenderBody()
+    <footer>
+        <p>BETTING, Copyright &copy; 2019</p>
+    </footer>
+</body>
+</html>
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+
+</script>

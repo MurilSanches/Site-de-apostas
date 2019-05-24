@@ -1,0 +1,67 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_Grafico.cshtml";
+}
+
+<section id="grafico">
+    <div class="container">
+        <h1>Grafico de Pareto</h1>
+        <div id="chartContainer" style="height: 500px; max-width: 920px; margin: 5px auto;"></div>
+        </div>
+</section>
+<script>
+    window.onload = function () {
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            title: {
+                
+            },
+            axisY: {
+                title: "Frequência na produção",
+                lineColor: "#000000",
+                tickColor: "#000000",
+                labelFontColor: "#000000"
+            },
+            axisY2: {
+                title: "Porcentagem",
+                suffix: "%",
+                lineColor: "#000000",
+                tickColor: "#000000",
+                labelFontColor: "#000000"
+            },
+            data: [{
+                type: "column",
+                dataPoints: [
+                    { label: "Erros de Sintaxe", y: 120 },
+                    { label: "Erros de Design", y: 86 },
+                    { label: "Erros não Tratados", y: 37 },
+                    { label: "Erros de Lógica", y: 6 },
+                    { label: "Erros de Banco de Dados", y: 4 },
+                ]
+            }]
+        });
+        chart.render();
+        createPareto();
+
+        function createPareto() {
+            var dps = [];
+            var yValue, yTotal = 0, yPercent = 0;
+
+            for (var i = 0; i < chart.data[0].dataPoints.length; i++)
+                yTotal += chart.data[0].dataPoints[i].y;
+
+            for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
+                yValue = chart.data[0].dataPoints[i].y;
+                yPercent += (yValue / yTotal * 100);
+                dps.push({
+                    label: chart.data[0].dataPoints[i].label, y: yPercent
+                });
+            }
+
+            chart.addTo("data", { type: "line", yValueFormatString: "0.##\"%\"", dataPoints: dps });
+            chart.data[1].set("axisYType", "secondary", false);
+            chart.axisY[0].set("maximum", yTotal);
+            chart.axisY2[0].set("maximum", 100);
+        }
+
+    }
+</script>
