@@ -204,6 +204,7 @@
     <Compile Include="Controllers\ApostasController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="DAO\JogoDAO.cs" />
+    <Compile Include="DAO\ResultadoDAO.cs" />
     <Compile Include="DAO\SiteContext.cs" />
     <Compile Include="DAO\TimeDAO.cs" />
     <Compile Include="Filtros\AutorizacaoFilterAttribute.cs" />
@@ -212,6 +213,7 @@
     </Compile>
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Models\Jogo.cs" />
+    <Compile Include="Models\Resultado.cs" />
     <Compile Include="Models\Time.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="DAO\VotacaoDAO.cs" />

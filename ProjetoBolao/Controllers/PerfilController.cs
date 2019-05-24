@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjetoBolao.Filtros;
 using ProjetoBolao.Models;
+using ProjetoBolao.DAO;
 
 namespace ProjetoBolao.Controllers
 {
@@ -19,6 +20,17 @@ namespace ProjetoBolao.Controllers
             if (u.Id == 1)
                 return RedirectToAction("Index", "Admin");
             return View();
+        }
+
+        public JsonResult AlteraEmail(string email, int id)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(id);
+
+            user.Email = email;
+
+            UsuarioDAO.Alterar(user);
+
+            return Json("email alterado com sucesso");
         }
     }
 }

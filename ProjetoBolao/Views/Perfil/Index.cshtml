@@ -10,7 +10,6 @@
 }
 
 <section id="perfil">
-
     <div class="container">
         <h1>Perfil</h1>
         <div class="image">
@@ -55,7 +54,7 @@
                         <button class="nav-link buttonNav" type="button" href="#" id="myBtn3">alterar foto de perfil</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link buttonNav" type="button" shref="#" id="myBtn1">alterar senha</button>
+                        <button class="nav-link buttonNav" type="button" href="#" id="myBtn1">alterar senha</button>
                     </li>
                 </ul>
             </div>
@@ -73,7 +72,7 @@
                         <form role="form">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>                               
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="inputGroupFile01"
                                                aria-describedby="inputGroupFileAddon01">
@@ -104,11 +103,12 @@
                     </div>
                     <div class="modal-body" style="padding:40px 50px;">
                         <form role="form">
+                            <input type="hidden" value="@u.Id" name="u.Id" id="userId" />
                             <div class="form-group">
                                 <label for="usrname"><span class="glyphicon glyphicon-tags"></span> Novo email</label>
-                                <input type="text" class="form-control" id="usrname" placeholder="Email">
+                                <input type="text" class="form-control" name="u.Email" placeholder="Email" id="email">
                             </div>
-                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
+                            <button type="button" onclick="alterar()" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -170,6 +170,7 @@
 
             </div>
         </div>
+    </div>
 </section>
 <script>
     $(document).ready(function () {
@@ -192,4 +193,11 @@
             $("#myModal1").modal();
         });
     });
+
+    alterar = function () {
+        $.post("/Perfil/AlteraEmail", { email: $("#email").val(), id: $("#userId") }, function (resposta) {
+            alert(resposta);
+        });
+    }
+
 </script>

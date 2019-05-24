@@ -13,9 +13,13 @@ namespace ProjetoBolao.Models
 
         public int CodTimeB { get; set; }
 
-        public string Resultado { get; set; }
+        public int QtdVotos { get; set; }
 
-        public int? CodTimeVitorioso { get; set; }
+        public int QtdVotosTimeA { get; set; }
+
+        public int QtdVotosTimeB { get; set; }
+
+        public int QtdVotosEmpate { get; set; }
 
         public int Ocorreu { get; set; }
 

@@ -17,15 +17,16 @@
                     <div class="card">
                         <div class="card-body">
                             <img src="" alt="Foto do time" id="fotoTimeA">
-                        </div>                        
+                        </div>
                         <div class="card-footer">
                             <select class="custom-select my-1 mr-sm-2" onchange="mudouA(this)">
                                 <option></option>
                                 @foreach (ProjetoBolao.Models.Time time in t)
                                 {
-                                    <option value="@time.Foto">@time.NomeTime</option>
+                                    <option>@time.NomeTime</option>
                                 }
                             </select>
+                            <input type="hidden" name="j.CodTimeA" id="idTimeA" value=""/>
                         </div>
                     </div>
                     <!-- Card 2 -->
@@ -38,9 +39,10 @@
                                 <option></option>
                                 @foreach (ProjetoBolao.Models.Time time in t)
                                 {
-                                    <option value="@time.Foto" name="id2">@time.NomeTime</option>
+                                    <option>@time.NomeTime</option>
                                 }
                             </select>
+                            <input type="hidden" name="j.CodTimeB" id="idTimeB" value=""/>
                         </div>
                     </div>
                 </div>
@@ -53,17 +55,17 @@
 <script>
 
     mudouA = function (times) {
-        var time = times.options[times.selectedIndex].innerHTML;
-        var foto = times.options[times.selectedIndex].value;
-        $("#nomeTimeA").innerHTML = time;
-        $("#fotoTimeA").attr("src", foto);
+        $.post("/Admin/TimeJson", { nome: times.options[times.selectedIndex].innerHTML }, function (resposta) {
+            $("#fotoTimeA").attr("src", resposta.Foto);
+            $("#idTimeA").attr("value", resposta.Id);
+        });
     }
 
     mudouB = function (times) {
-        var time = times.options[times.selectedIndex].innerHTML;
-        var foto = times.options[times.selectedIndex].value;
-        $("#nomeTimeB").innerHTML = time;
-        $("#fotoTimeB").attr("src", foto);
+        $.post("/Admin/TimeJson", { nome: times.options[times.selectedIndex].innerHTML }, function (resposta) {
+            $("#fotoTimeB").attr("src", resposta.Foto);
+            $("#idTimeB").attr("value", resposta.Id);
+        });
     }
 
 </script>

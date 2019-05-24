@@ -31,11 +31,28 @@ namespace ProjetoBolao.DAO
             }
         }
 
+        public static Usuario returnUsuario(int id)
+        {
+            using (var contexto = new SiteContext())
+            {
+                return contexto.Usuario2.FirstOrDefault(u => u.Id == id);
+            }
+        }
+
         public static void Adicionar (Usuario u)
         {
             using (var contexto = new SiteContext())
             {
                 contexto.Usuario2.Add(u);
+                contexto.SaveChanges();
+            }
+        }
+
+        public static void Alterar(Usuario u)
+        {
+            using (var contexto = new SiteContext())
+            {
+                contexto.Usuario2.Update(u);
                 contexto.SaveChanges();
             }
         }

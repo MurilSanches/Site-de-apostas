@@ -55,7 +55,7 @@
                         </form>
                     </li>
                     <li class="nav-item">
-                        <form  action="/Admin/AdicionaTime">
+                        <form action="/Admin/AdicionaTime">
                             <button class="nav-link buttonNav" type="submit">altera time</button>
                         </form>
                     </li>
@@ -66,17 +66,86 @@
                     </li>
                     <li class="nav-item">
                         <form>
-                            <button class="nav-link buttonNav" href="#">alterar foto de perfil</button>
+                            <button class="nav-link buttonNav" href="#" type="button" id="alterarFoto">alterar foto de perfil</button>
                         </form>
                     </li>
                     <li class="nav-item">
                         <form>
-                            <button class="nav-link buttonNav" href="#">alterar senha</button>
+                            <button class="nav-link buttonNav" href="#" type="button" id="alterarSenha">alterar senha</button>
                         </form>
                     </li>
                 </ul>
             </div>
         </nav>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+                        <h4><span class="glyphicon glyphicon-pencil"></span> Foto de Perfil</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form role="form">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                               aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Escolha um arquivo</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal1" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+
+                        <h4><span class="glyphicon glyphicon-pencil"></span> Alterar Senha</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="usrname"><span class="glyphicon glyphicon-lock"></span> Nova senha</label>
+                                <input type="text" class="form-control" id="usrname" placeholder="Senha">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script>
+
+            $(document).ready(function () {
+                $("#alterarFoto").click(function () {
+                    $("#myModal").modal();
+                });
+            });
+            $(document).ready(function () {
+                $("#alterarSenha").click(function () {
+                    $("#myModal1").modal();
+                });
+            });
+
+        </script>
     </div>
 </section>
 

@@ -11,9 +11,15 @@
         <br /><br />
         @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
         {
+            if(j.Ocorreu == 1)
+            {
+                continue;
+            }
+
             ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
             ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
-            <form>
+            <form action="/Admin/AdicionarResultado">
+                <input type="hidden" value="@j.Id" name="r.CodJogo"/>
                 <div class="container-fluid">
                     <input type="hidden" name="v.CodJogo">
                     <div class="card-group">
@@ -24,7 +30,15 @@
                                 <img src="@timeA.Foto" alt="Foto do time">
                             </div>
                             <div class="card-footer">
-                                <label>0</label>
+                                <div class="input-group number-spinner">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                                    </span>
+                                    <input type="text" class="form-control text-center" name="r.QtdGolA" value="0">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <!-- Card 2 -->
@@ -34,7 +48,15 @@
                                 <img src="@timeB.Foto" alt="Foto do time">
                             </div>
                             <div class="card-footer">
-                                <label>0</label>
+                                <div class="input-group number-spinner">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                                    </span>
+                                    <input type="text" class="form-control text-center" name="r.QtdGolB" value="0">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -47,4 +69,23 @@
         }
     </div>
 </section>
+<script>
 
+    $(document).on('click', '.number-spinner button', function () {
+        var btn = $(this),
+            oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+            newVal = 0;
+
+        if (btn.attr('data-dir') == 'up') {
+            newVal = parseInt(oldValue) + 1;
+        } else {
+            if (oldValue > 1) {
+                newVal = parseInt(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        btn.closest('.number-spinner').find('input').val(newVal);
+    });
+
+</script>

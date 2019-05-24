@@ -36,5 +36,17 @@ namespace ProjetoBolao.DAO
 
             return lista;
         }
+
+        public static IList<Votacao> ListaDeVotosDoJogo(int id)
+        {
+            List<Votacao> lista = new List<Votacao>();
+            foreach (Votacao v in Lista())
+            {
+                if (v.CodJogo == id)
+                    lista.Add(v);
+            }
+
+            return lista;
+        }
     }
 }

@@ -24,7 +24,20 @@ namespace ProjetoBolao.Controllers
         public ActionResult Votar(Votacao v)
         {            
             v.CodUsuario = ((Usuario)Session["usuarioLogado"]).Id;
-            VotacaoDAO.Votar(v);               
+            VotacaoDAO.Votar(v);
+
+            Jogo j = JogoDAO.Jogo(v.CodJogo);
+            j.QtdVotos += 1;
+            if (v.CodTimeVotado == 0)
+                j.QtdVotosEmpate += 1;
+            else
+            {
+                if (v.CodTimeVotado == j.CodTimeA)
+                    j.QtdVotosTimeA += 1;
+                else
+                    j.QtdVotosTimeB += 1;
+            }
+            JogoDAO.Altera(j);
             return RedirectToAction("Index", "Apostas");
         }
     }
