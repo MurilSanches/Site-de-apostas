@@ -117,10 +117,11 @@
                         <h4><span class="glyphicon glyphicon-pencil"></span> Alterar Senha</h4>
                     </div>
                     <div class="modal-body" style="padding:40px 50px;">
-                        <form role="form">
+                        <form role="form" action="/Admin/AlteraSenha">
+                            <input type="hidden" value="@u.Id" name="u.Id"/>
                             <div class="form-group">
                                 <label for="usrname"><span class="glyphicon glyphicon-lock"></span> Nova senha</label>
-                                <input type="text" class="form-control" id="usrname" placeholder="Senha">
+                                <input type="text" class="form-control" name="u.Senha" id="usrname" placeholder="Senha">
                             </div>
                             <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
                         </form>

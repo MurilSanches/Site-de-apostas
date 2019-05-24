@@ -1,34 +1,32 @@
-﻿@{ 
+﻿@{
     Layout = "~/Views/Shared/_Cadastro.cshtml";
 }
 
 <section id="Login">
     <div class="container">
         <h1>Login</h1>
-        <div>
-            <form action="/Login/Autentica" method="post">
-                <ul>
-                    <li><label>não tem cadastro ainda clique @Html.ActionLink("aqui", "Index", "Cadastro", null, new { @class = "nav-link" })</label></li>
-                    <li>
-                        <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" id="nome" name="u.Nome" required>
-                            <span class="a-field__label-wrap">
-                                <span class="a-field__label">Nome</span>
-                            </span>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" type="password" name="u.Senha" id="senha" required>
-                            <span class="a-field__label-wrap">
-                                <span class="a-field__label">Senha</span>
-                            </span>
-                        </label>
-                    </li>
-                    <li><button class="button" type="submit" data-toggle="modal" data-target="#exampleModalCenter" value="Login">Login</button></li>
-                </ul>               
-            </form>
-        </div>
+        <form action="/Login/Autentica" method="post">
+            <ul>
+                <li><label>não tem cadastro ainda clique @Html.ActionLink("aqui", "Index", "Cadastro", null, new { @class = "nav-link" })</label></li>
+                <li>
+                    <label class="field a-field a-field_a3 page__field">
+                        <input class="field__input a-field__input" id="nome" name="u.Nome" required>
+                        <span class="a-field__label-wrap">
+                            <span class="a-field__label">Nome</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label class="field a-field a-field_a3 page__field">
+                        <input class="field__input a-field__input" type="password" name="u.Senha" id="senha" required>
+                        <span class="a-field__label-wrap">
+                            <span class="a-field__label">Senha</span>
+                        </span>
+                    </label>
+                </li>
+                <li><button class="button" type="submit" data-toggle="modal" data-target="#exampleModalCenter" value="Login">Login</button></li>
+            </ul>
+        </form>
     </div>
 </section>
 

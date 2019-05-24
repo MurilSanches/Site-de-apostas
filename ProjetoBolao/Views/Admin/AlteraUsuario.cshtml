@@ -51,37 +51,198 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <button class="nav-link buttonNav" data-toggle="modal" data-target="#modalNome" data-whatever="nome">alterar nome</button>
+                        <button class="nav-link buttonNav" type="button" href="#" id="myBtn">alterar nome</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link buttonNav" href="#">alterar e-mail</button>
+                        <button class="nav-link buttonNav" type="button" href="#" id="myBtn2">alterar e-mail</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link buttonNav" href="#">alterar foto de perfil</button>
+                        <button class="nav-link buttonNav" type="button" href="#" id="myBtn3">alterar foto de perfil</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link buttonNav" href="#">alterar senha</button>
+                        <button class="nav-link buttonNav" type="button" href="#" id="myBtn1">alterar senha</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link buttonNav" href="#">alterar pontos</button>
+                        <button class="nav-link buttonNav" type="button" href="#" id="myBtn4">alterar pontos</button>
                     </li>
                 </ul>
             </div>
         </nav>
-    </div>
- </section>
-<script>
+        <div class="modal fade" id="myModal3" role="dialog">
+            <div class="modal-dialog">
 
-    mudar = function (usuarios)
-    {
-        $.post("/Admin/UsuarioJson", { nome: $("#nomesUsu").val() }, function (userSelected) {
-            $("#nome").html(userSelected.Nome);
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+                        <h4><span class="glyphicon glyphicon-pencil"></span> Foto de Perfil</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form role="form" action="/Admin/AlteraFoto" enctype="multipart/form-data">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="custom-file">
+                                        <input type="file" name="upload" class="custom-file-input" id="inputGroupFile01"
+                                               aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Escolha um arquivo</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal2" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+
+                        <h4><span class="glyphicon glyphicon-pencil"></span> Alterar Email</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form action="/Admin/AlteraEmail">
+                            <div class="form-group">
+                                <label for="usrname"><span class="glyphicon glyphicon-tags"></span> Novo email</label>
+                                <input type="text" class="form-control" name="u.Email" placeholder="Email" id="email">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal1" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+
+                        <h4><span class="glyphicon glyphicon-pencil"></span> Alterar Senha</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form action="/Admin/AlteraSenha">
+                            <div class="form-group">
+                                <label for="usrname"><span class="glyphicon glyphicon-lock"></span> Nova senha</label>
+                                <input type="text" class="form-control" name="u.Senha" id="usrname" placeholder="Senha">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+
+                        <h4><span class="glyphicon glyphicon-pencil"></span> Alterar Nome</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form action="/Admin/AlteraNome">
+                            <div class="form-group">
+                                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Novo nome</label>
+                                <input type="text" class="form-control" name="u.Nome" id="usrname" placeholder="Nome">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal fade" id="myModal4" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+
+                        <h4><span class="glyphicon glyphicon-pencil"></span> Alterar Pontos</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <form action="/Admin/AlteraPontos">
+                            <div class="form-group">
+                                <label for="usrname">Novo quantidade de pontos</label>
+                                <input type="text" class="form-control" name="u.Nome" id="usrname" placeholder="pontuação">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#myBtn2").click(function () {
+                $("#myModal2").modal();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#myBtn3").click(function () {
+                $("#myModal3").modal();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#myBtn").click(function () {
+                $("#myModal").modal();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#myBtn1").click(function () {
+                $("#myModal1").modal();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#myBtn4").click(function () {
+                $("#myModal4").modal();
+            });
+        });
+
+        mudar = function (usuarios) {
+            $.post("/Admin/UsuarioJson", { nome: $("#nomesUsu").val() }, function (userSelected) {
+                $("#nome").html(userSelected.Nome);
                 $("#senha").html(userSelected.Senha);
                 $("#email").html(userSelected.Email);
                 $("#pontos").html(userSelected.qntsPontos);
                 $("#idade").html(userSelected.Idade);
                 $("#foto").attr("src", userSelected.Foto);
-        });
-    }
+            });
+        }
 
-</script>
+    </script>
+</section>

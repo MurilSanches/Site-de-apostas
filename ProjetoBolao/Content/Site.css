@@ -36,6 +36,19 @@ body {
     overflow: hidden;
 }
 
+.progress-bar-danger{
+    background-color:#dc3545 !important;
+}
+
+.progress-bar-sucess{
+    background-color: #28a745 !important;
+}
+
+.progress-bar-warning{
+    background-color:#ffc107 !important;
+}
+
+
 .image {
     width:100%;
     max-width:350px;

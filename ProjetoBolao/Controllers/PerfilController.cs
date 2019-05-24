@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ProjetoBolao.Filtros;
 using ProjetoBolao.Models;
 using ProjetoBolao.DAO;
+using System.IO;
 
 namespace ProjetoBolao.Controllers
 {
@@ -22,15 +23,69 @@ namespace ProjetoBolao.Controllers
             return View();
         }
 
-        public JsonResult AlteraEmail(string email, int id)
+        public ActionResult AlteraEmail(Usuario u)
         {
-            Usuario user = UsuarioDAO.returnUsuario(id);
+            Usuario user = UsuarioDAO.returnUsuario(u.Id);
 
-            user.Email = email;
+            user.Email = u.Email;
 
             UsuarioDAO.Alterar(user);
 
-            return Json("email alterado com sucesso");
+            Session["usuarioLogado"] = user;
+
+            return RedirectToAction("Index", "Perfil");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraFoto(Usuario u, HttpPostedFileBase upload)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(u.Id);
+
+            if (upload != null)
+            {
+                var uploadPath = Server.MapPath("~/img/imgUsuarios");
+                string caminhoArq = Path.Combine(@uploadPath, user.Nome + Path.GetExtension(upload.FileName));
+
+                string[] extensaoPermitida = { ".gif", ".png", ".jpg", ".jpeg" };
+
+                for (int i = 0; i < extensaoPermitida.Length; i++)
+                    if (Path.GetExtension(caminhoArq) == extensaoPermitida[i])
+                    {
+                        upload.SaveAs(caminhoArq);
+                        break;
+                    }
+                user.Foto = "../img/imgUsuarios/" + user.Nome + Path.GetExtension(upload.FileName);
+            }
+
+            UsuarioDAO.Alterar(user);
+
+            return RedirectToAction("Index", "Perfil");
+        }
+
+        public ActionResult AlteraNome(Usuario u)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(u.Id);
+
+            user.Nome = u.Nome;
+
+            UsuarioDAO.Alterar(user);
+
+            Session["usuarioLogado"] = user;
+
+            return RedirectToAction("Index", "Perfil");
+        }
+
+        public ActionResult AlteraSenha(Usuario u)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(u.Id);
+
+            user.Senha = u.Senha;
+
+            UsuarioDAO.Alterar(user);
+
+            Session["usuarioLogado"] = user;
+
+            return RedirectToAction("Index", "Perfil");
         }
     }
 }

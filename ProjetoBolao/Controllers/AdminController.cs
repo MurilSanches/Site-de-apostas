@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ProjetoBolao.Filtros;
 using ProjetoBolao.DAO;
 using ProjetoBolao.Models;
+using System.IO;
 
 namespace ProjetoBolao.Controllers
 {
@@ -50,11 +51,38 @@ namespace ProjetoBolao.Controllers
                 Usuario u = UsuarioDAO.returnUsuario(v.CodUsuario);
 
                 if (r.QtdGolA > r.QtdGolB && v.CodTimeVotado == j.CodTimeA)
-                    u.qntsPontos += 100;
+                {
+                    if(j.QtdVotosTimeA >= j.QtdVotosTimeB && j.QtdVotosTimeA >= j.QtdVotosEmpate)
+                        u.qntsPontos += 100;
+                    if (j.QtdVotosTimeA > j.QtdVotosTimeB && j.QtdVotosTimeA < j.QtdVotosEmpate)
+                        u.qntsPontos += 300;
+                    if (j.QtdVotosTimeA < j.QtdVotosTimeB && j.QtdVotosTimeA > j.QtdVotosEmpate)
+                        u.qntsPontos += 300;
+                    if (j.QtdVotosTimeA < j.QtdVotosTimeB && j.QtdVotosTimeA < j.QtdVotosEmpate)
+                        u.qntsPontos += 500;
+                }
                 if (r.QtdGolA < r.QtdGolB && v.CodTimeVotado == j.CodTimeB)
-                    u.qntsPontos += 100;
+                {
+                    if (j.QtdVotosTimeB >= j.QtdVotosTimeA && j.QtdVotosTimeB >= j.QtdVotosEmpate)
+                        u.qntsPontos += 100;
+                    if (j.QtdVotosTimeB > j.QtdVotosTimeA && j.QtdVotosTimeB < j.QtdVotosEmpate)
+                        u.qntsPontos += 300;
+                    if (j.QtdVotosTimeB < j.QtdVotosTimeA && j.QtdVotosTimeB > j.QtdVotosEmpate)
+                        u.qntsPontos += 300;
+                    if (j.QtdVotosTimeB < j.QtdVotosTimeA && j.QtdVotosTimeB < j.QtdVotosEmpate)
+                        u.qntsPontos += 500;
+                }
                 if (r.QtdGolA == r.QtdGolB && v.CodTimeVotado == 0)
-                    u.qntsPontos += 100;                        
+                {
+                    if (j.QtdVotosEmpate >= j.QtdVotosTimeA && j.QtdVotosEmpate >= j.QtdVotosTimeB)
+                        u.qntsPontos += 100;
+                    if (j.QtdVotosEmpate > j.QtdVotosTimeA && j.QtdVotosEmpate < j.QtdVotosTimeB)
+                        u.qntsPontos += 300;
+                    if (j.QtdVotosEmpate < j.QtdVotosTimeA && j.QtdVotosEmpate > j.QtdVotosTimeB)
+                        u.qntsPontos += 300;
+                    if (j.QtdVotosEmpate < j.QtdVotosTimeA && j.QtdVotosEmpate < j.QtdVotosTimeB)
+                        u.qntsPontos += 500;
+                }      
 
                 UsuarioDAO.Alterar(u);
             }
@@ -82,6 +110,76 @@ namespace ProjetoBolao.Controllers
         public JsonResult TimeJson(string nome)
         {
             return Json(TimeDAO.Time(nome));
+        }
+
+        public ActionResult AlteraSenha(Usuario u)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+
+            user.Senha = u.Senha;
+
+            UsuarioDAO.Alterar(user);
+
+            return RedirectToAction("Index", "Admin");
+        }
+
+        [HttpPost]
+        public ActionResult AlteraFoto(Usuario u, HttpPostedFileBase upload)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+
+            if(upload != null)
+            {                
+                var uploadPath = Server.MapPath("~/img/imgUsuarios");
+                string caminhoArq = Path.Combine(@uploadPath, user.Nome + Path.GetExtension(upload.FileName));
+
+                string[] extensaoPermitida = { ".gif", ".png", ".jpg",  ".jpeg"};
+
+                for(int i = 0; i < extensaoPermitida.Length; i++)
+                    if(Path.GetExtension(caminhoArq) == extensaoPermitida[i])
+                    {
+                        upload.SaveAs(caminhoArq);
+                        break;
+                    }
+                user.Foto = "../img/imgUsuarios" + user.Nome + Path.GetExtension(upload.FileName);
+            }
+
+            UsuarioDAO.Alterar(user);
+
+            return RedirectToAction("Index", "Admin");
+        }
+
+        public ActionResult AlteraEmail(Usuario u)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+
+            user.Email = u.Email;
+
+            UsuarioDAO.Alterar(user);
+
+            return RedirectToAction("Index", "Admin");
+        }
+
+        public ActionResult AlteraNome(Usuario u)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+
+            user.Nome = u.Nome;
+
+            UsuarioDAO.Alterar(user);
+
+            return RedirectToAction("Index", "Admin");
+        }
+
+        public ActionResult AlteraPontos(Usuario u)
+        {
+            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+
+            user.qntsPontos = u.qntsPontos;
+
+            UsuarioDAO.Alterar(user);
+
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

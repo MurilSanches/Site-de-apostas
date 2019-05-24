@@ -63,9 +63,9 @@
                     }
                 }
 
-                porcentagemA = Math.Round((qtdA / double.Parse(votos.Count() + "")* 100), 2);
-                porcentagemB = Math.Round((qtdB / double.Parse(votos.Count() + "") * 100), 2);
-                porcentagemEmpate = Math.Round((qtdEmpate / double.Parse(votos.Count() + "") * 100), 2);
+                porcentagemA = Math.Round((qtdA / double.Parse(votos.Count() + "") * 100));
+                porcentagemB = Math.Round((qtdB / double.Parse(votos.Count() + "") * 100));
+                porcentagemEmpate = Math.Round((qtdEmpate / double.Parse(votos.Count() + "") * 100));
 
 
             }
@@ -109,8 +109,8 @@
                             }
                             else
                             {
-                                <button type="submit" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeB.NomeTime</button>
-                                
+                                <button type="submit" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeA.NomeTime</button>
+
                             }
                             @if (vot != null)
                             {
@@ -126,7 +126,7 @@
                             else
                             {
                                 <button type="submit" name="v.CodTimeVotado" href="#" class="btn btn-danger" value="0">Empate</button>
-                                
+
                             }
 
                             @if (vot != null)
@@ -141,7 +141,7 @@
                                 }
                                 <br /><br />
                                 <div class="progress" style="height: 20px;">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
                                         @porcentagemA%
                                     </div>
                                     <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@porcentagemEmpate%" aria-valuemin="0" aria-valuemax="100">
