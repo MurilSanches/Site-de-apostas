@@ -77,10 +77,11 @@
                         <h4><span class="glyphicon glyphicon-pencil"></span> Foto de Perfil</h4>
                     </div>
                     <div class="modal-body" style="padding:40px 50px;">
-                        <form role="form" action="/Admin/AlteraFoto" enctype="multipart/form-data">
+                        <form role="form" method="post" action="/Admin/AlteraFoto" enctype="multipart/form-data">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="custom-file">
+                                        <input type="hidden" name="u.Email" value="" id="userEmail1" />
                                         <input type="file" name="upload" class="custom-file-input" id="inputGroupFile01"
                                                aria-describedby="inputGroupFileAddon01">
                                         <label class="custom-file-label" for="inputGroupFile01">Escolha um arquivo</label>
@@ -111,6 +112,7 @@
                     <div class="modal-body" style="padding:40px 50px;">
                         <form action="/Admin/AlteraEmail">
                             <div class="form-group">
+                                <input type="hidden" name="u.Nome" value="" id="userNome" />
                                 <label for="usrname"><span class="glyphicon glyphicon-tags"></span> Novo email</label>
                                 <input type="text" class="form-control" name="u.Email" placeholder="Email" id="email">
                             </div>
@@ -138,6 +140,7 @@
                     <div class="modal-body" style="padding:40px 50px;">
                         <form action="/Admin/AlteraSenha">
                             <div class="form-group">
+                                <input type="hidden" name="u.Email" value="" id="userEmail3" />
                                 <label for="usrname"><span class="glyphicon glyphicon-lock"></span> Nova senha</label>
                                 <input type="text" class="form-control" name="u.Senha" id="usrname" placeholder="Senha">
                             </div>
@@ -163,6 +166,7 @@
                     <div class="modal-body" style="padding:40px 50px;">
                         <form action="/Admin/AlteraNome">
                             <div class="form-group">
+                                <input type="hidden" name="u.Email" value="" id="userEmail4" />
                                 <label for="usrname"><span class="glyphicon glyphicon-user"></span> Novo nome</label>
                                 <input type="text" class="form-control" name="u.Nome" id="usrname" placeholder="Nome">
                             </div>
@@ -188,8 +192,9 @@
                     <div class="modal-body" style="padding:40px 50px;">
                         <form action="/Admin/AlteraPontos">
                             <div class="form-group">
+                                <input type="hidden" name="u.Email" value="" id="userEmail5"/>
                                 <label for="usrname">Novo quantidade de pontos</label>
-                                <input type="text" class="form-control" name="u.Nome" id="usrname" placeholder="pontuação">
+                                <input type="text" class="form-control" name="u.qntsPontos" id="usrname" placeholder="pontuação">
                             </div>
                             <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Alterar</button>
                         </form>
@@ -241,6 +246,11 @@
                 $("#pontos").html(userSelected.qntsPontos);
                 $("#idade").html(userSelected.Idade);
                 $("#foto").attr("src", userSelected.Foto);
+                $("#userEmail1").val(userSelected.Email);
+                $("#userNome").val(userSelected.Email);
+                $("#userEmail3").val(userSelected.Email);
+                $("#userEmail4").val(userSelected.Email);
+                $("#userEmail5").val(userSelected.Email);
             });
         }
 

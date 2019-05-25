@@ -6,7 +6,7 @@
 <section id="apostas">
     <div class="container">
         <div id="main-col">
-            <h1>Principais apostas</h1>
+            <h1>Todos os jogos</h1>
         </div>
         @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
         {
@@ -109,7 +109,7 @@
                             }
                             else
                             {
-                                <button type="submit" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeA.NomeTime</button>
+                                <button type="submit" id="Votar" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeA.NomeTime</button>
 
                             }
                             @if (vot != null)
@@ -125,7 +125,7 @@
                             }
                             else
                             {
-                                <button type="submit" name="v.CodTimeVotado" href="#" class="btn btn-danger" value="0">Empate</button>
+                                <button type="submit" id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-danger" value="0">Empate</button>
 
                             }
 
@@ -154,7 +154,7 @@
                             }
                             else
                             {
-                                <button type="submit" name="v.CodTimeVotado" href="#" class="btn btn-primary" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
+                                <button type="submit" id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-primary" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
 
                             }
                             <br /><br />
@@ -168,3 +168,15 @@
         }
     </div>
 </section>
+
+@*<script>
+
+    $("#votar").on("click", function () {
+        votar()
+    });
+
+    votar = function () {
+        var idJogo = $();
+    }
+
+</script>*@

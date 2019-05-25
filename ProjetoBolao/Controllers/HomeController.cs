@@ -11,7 +11,7 @@ namespace Projeto2BOlao.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Jogos = JogoDAO.ListaJogo();
+            ViewBag.Jogos = JogoDAO.JogosMaisVotados();
             return View();
         }
 

@@ -49,6 +49,9 @@ namespace ProjetoBolao.Controllers
             foreach (Votacao v in VotacaoDAO.ListaDeVotosDoJogo(j.Id))
             {
                 Usuario u = UsuarioDAO.returnUsuario(v.CodUsuario);
+                Notificacao n = new Notificacao();
+
+                n.pontosGanhos = u.qntsPontos;
 
                 if (r.QtdGolA > r.QtdGolB && v.CodTimeVotado == j.CodTimeA)
                 {
@@ -82,8 +85,14 @@ namespace ProjetoBolao.Controllers
                         u.qntsPontos += 300;
                     if (j.QtdVotosEmpate < j.QtdVotosTimeA && j.QtdVotosEmpate < j.QtdVotosTimeB)
                         u.qntsPontos += 500;
-                }      
+                }
 
+                n.pontosGanhos = u.qntsPontos - n.pontosGanhos;
+                n.data = DateTime.Now;
+                n.CodJogo = j.Id;
+                n.CodUsuario = u.Id;
+
+                NotificacaoDAO.Adicionar(n);
                 UsuarioDAO.Alterar(u);
             }
 
@@ -114,21 +123,21 @@ namespace ProjetoBolao.Controllers
 
         public ActionResult AlteraSenha(Usuario u)
         {
-            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+            Usuario user = UsuarioDAO.Usuario(u.Email);
 
             user.Senha = u.Senha;
 
             UsuarioDAO.Alterar(user);
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("AlteraUsuario", "Admin");
         }
 
         [HttpPost]
         public ActionResult AlteraFoto(Usuario u, HttpPostedFileBase upload)
         {
-            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+            Usuario user = UsuarioDAO.Usuario(u.Email);
 
-            if(upload != null)
+            if (upload != null)
             {                
                 var uploadPath = Server.MapPath("~/img/imgUsuarios");
                 string caminhoArq = Path.Combine(@uploadPath, user.Nome + Path.GetExtension(upload.FileName));
@@ -141,45 +150,45 @@ namespace ProjetoBolao.Controllers
                         upload.SaveAs(caminhoArq);
                         break;
                     }
-                user.Foto = "../img/imgUsuarios" + user.Nome + Path.GetExtension(upload.FileName);
+                user.Foto = "../img/imgUsuarios/" + user.Nome + Path.GetExtension(upload.FileName);
             }
 
             UsuarioDAO.Alterar(user);
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("AlteraUsuario", "Admin");
         }
 
         public ActionResult AlteraEmail(Usuario u)
         {
-            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+            Usuario user = UsuarioDAO.Usuario(u.Nome);
 
             user.Email = u.Email;
 
             UsuarioDAO.Alterar(user);
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("AlteraUsuario", "Admin");
         }
 
         public ActionResult AlteraNome(Usuario u)
         {
-            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+            Usuario user = UsuarioDAO.Usuario(u.Email);
 
             user.Nome = u.Nome;
 
             UsuarioDAO.Alterar(user);
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("AlteraUsuario", "Admin");
         }
 
         public ActionResult AlteraPontos(Usuario u)
         {
-            Usuario user = UsuarioDAO.returnUsuario(u.Nome);
+            Usuario user = UsuarioDAO.Usuario(u.Email);
 
             user.qntsPontos = u.qntsPontos;
 
             UsuarioDAO.Alterar(user);
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("AlteraUsuario", "Admin");
         }
     }
 }

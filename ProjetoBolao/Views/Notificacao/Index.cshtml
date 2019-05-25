@@ -1,0 +1,71 @@
+﻿<section id="notificacao">
+    <div class="container">
+        <h1>Notificações</h1>
+        @if (ViewBag.Notificacoes.Count != 0)
+        {
+<ul>
+                @foreach (ProjetoBolao.Models.Notificacao v in ViewBag.Notificacoes)
+                {
+                    var data = v.data;
+                    string semana = "";
+
+                    if (data.Year == DateTime.Now.Year && data.Month == DateTime.Now.Month)
+                    {
+                        semana = data.DayOfWeek.ToString();
+                    }
+
+
+                    ProjetoBolao.Models.Jogo j = ProjetoBolao.DAO.JogoDAO.Jogo(v.CodJogo);
+                    ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
+                    ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
+
+                    if (semana == "Monday")
+                    {
+                        semana = "Segunda";
+                        semana = "Segunda";
+                    }
+                    if (semana == "Tuesday")
+                    {
+                        semana = "Terça";
+                    }
+                    if (semana == "Wednesday")
+                    {
+                        semana = "Quarta";
+                    }
+                    if (semana == "Thursday")
+                    {
+                        semana = "Quinta";
+                    }
+                    if (semana == "Friday")
+                    {
+                        semana = "Sexta";
+                    }
+                    if (semana == "Saturday")
+                    {
+                        semana = "Sábado";
+                    }
+                    if (semana == "Sunday")
+                    {
+                        semana = "Domingo";
+                    }
+
+
+                    if (semana != "")
+                    {
+                        <li>Você ganhou @v.pontosGanhos pontos no jogo do @timeA.NomeTime contra @timeB.NomeTime que aconteceu @semana as @data.TimeOfDay.Hours</li>
+                    }
+                    else
+                    {
+                        <li>Você ganhou @v.pontosGanhos pontos no jogo do @timeA.NomeTime contra @timeB.NomeTime que aconteceu @data.Date</li>
+                    }
+                }
+            </ul>
+        }
+        else
+        {
+            <br />
+            <h2>SEM NOTIFICAÇÕES</h2>
+        }
+    </div>
+</section>
+

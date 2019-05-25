@@ -7,13 +7,35 @@
 <section id="apostas">
     <div class="container60">
         <div id="main-col">
-            <h1>Principais apostas</h1>
-            <div class="aposta">
+            <h1>Jogos mais votados</h1>
+            @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
+            {
+                ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
+                ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
                 <ul>
-                    <li><img src="~/img/04.png"><h4>SHALK 04</h4></li>
-                    <li><img src="~/img/manunitedfc.png"><h4>MANCHESTER UNITED</h4></li>
-                </ul>
-            </div>
+                    <li>
+                    <div class="card-group">
+                        <!-- Card 1 -->
+                        <div class="card">
+                            <div class="card-header"><label>@timeA.NomeTime</label></div>
+                            <div class="card-body">
+                                <img src="@timeA.Foto" alt="Photo of sunset">
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="card">
+                            <div class="card-header"><label>@timeB.NomeTime</label></div>
+                            <div class="card-body ">
+                                <img src="@timeB.Foto" alt="Photo of sunset">
+                            </div>
+                        </div>
+                    </div>
+                    <br /><br />
+                    </li>
+                    <li>Quer votar, cadastra-se @Html.ActionLink("clicando aqui","Index", "Cadastro") e comece a apostar </li>
+                </ul>                
+            }
+            @Html.ActionLink("Ver mais jogos", "Index", "Apostas", null, new { @class = "todosOsJogos"})
         </div>
     </div>
 </section>

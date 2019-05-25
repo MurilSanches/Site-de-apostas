@@ -200,10 +200,12 @@
     <Compile Include="Controllers\CadastroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NotificacaoController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ApostasController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="DAO\JogoDAO.cs" />
+    <Compile Include="DAO\NotificacaoDAO.cs" />
     <Compile Include="DAO\ResultadoDAO.cs" />
     <Compile Include="DAO\SiteContext.cs" />
     <Compile Include="DAO\TimeDAO.cs" />
@@ -213,6 +215,7 @@
     </Compile>
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Models\Jogo.cs" />
+    <Compile Include="Models\Notificacao.cs" />
     <Compile Include="Models\Resultado.cs" />
     <Compile Include="Models\Time.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -292,6 +295,7 @@
     <Content Include="Views\Shared\_Apostas.cshtml" />
     <Content Include="Views\Home\Grafico.cshtml" />
     <Content Include="Views\Shared\_Grafico.cshtml" />
+    <Content Include="Views\Notificacao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

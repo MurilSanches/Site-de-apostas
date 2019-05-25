@@ -16,6 +16,39 @@ namespace ProjetoBolao.DAO
             }
         }
 
+        public static IList<Jogo> JogosMaisVotados()
+        {
+            using (var contexto = new SiteContext())
+            {
+                var list = new List<Jogo>();
+                Jogo jogoMaisVotado = null;
+                var todosJogos = ListaJogo();
+
+                if (todosJogos.Count == 3)
+                    return todosJogos;
+                do
+                {
+                    foreach (Jogo j in todosJogos)
+                    {
+                        if (j.Ocorreu == 1)
+                            continue;
+                        if (jogoMaisVotado == null)
+                            jogoMaisVotado = j;
+                        else
+                        if (j.QtdVotos > jogoMaisVotado.QtdVotos)
+                            jogoMaisVotado = j;                        
+                    }                    
+
+                    todosJogos.Remove(jogoMaisVotado);
+                    list.Add(jogoMaisVotado);
+                    jogoMaisVotado = null;
+                }
+                while (list.Count < 3);
+
+                return list;
+            }
+        }
+
         public static void Adiciona(int id1, int id2)
         {
             using (var contexto = new SiteContext())

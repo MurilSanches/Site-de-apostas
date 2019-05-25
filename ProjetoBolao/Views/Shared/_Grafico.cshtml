@@ -17,24 +17,27 @@
 <body>
     <header>
         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
 
             @{
                 if (u != null)
                 {
                     <ul>
                         <li>
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
-                            <img src="@u.Foto" /><br />
-                            <label>Olá, @u.Nome</label><br />
+                            <img src="@u.Foto" />
+                            <label>Olá, @u.Nome</label>
                             <label><i class="fab fa-sketch"></i> @u.qntsPontos</label>
                         </li>
                     </ul>
                 }
                 else
                 {
-                    <img src="~/img/icone.png" />
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+
+                    <ul>
+                        <li><img src="~/img/icone.png" /></li>
+                    </ul>
                 }
+
             }
 
 
@@ -48,10 +51,10 @@
                 else
                 {
                     @Html.ActionLink("Olá, " + u.Nome, "Index", "Perfil", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Notificações", "Index", "Notificacao", null, new { @class = "nav-link" })
                     @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
                     @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
-                    @Html.ActionLink("Sair ", "Sair", "Home", null, new { @class = "nav-link" })
-                }
+                    @Html.ActionLink("Sair ", "Sair", "Home", null, new { @class = "nav-link" })}
             }
         </div>
         <a onclick="openNav()" class="menuzinho" href="#">&#9776;</a>

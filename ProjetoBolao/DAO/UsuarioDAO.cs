@@ -8,11 +8,11 @@ namespace ProjetoBolao.DAO
 {
     public class UsuarioDAO
     {
-        public Usuario Busca(string login, string senha)
+        public static Usuario Busca(string login, string senha)
         {
             using (var contexto = new SiteContext())
             {
-                return contexto.Usuario2.FirstOrDefault(u => u.Nome == login && u.Senha == senha);
+                return contexto.Usuario2.FirstOrDefault(u => u.Email == login && u.Senha == senha);
             }
         }
 
@@ -36,6 +36,14 @@ namespace ProjetoBolao.DAO
             using (var contexto = new SiteContext())
             {
                 return contexto.Usuario2.FirstOrDefault(u => u.Id == id);
+            }
+        }
+
+        public static Usuario Usuario(string email)
+        {
+            using (var contexto = new SiteContext())
+            {
+                return contexto.Usuario2.FirstOrDefault(u => u.Email == email);
             }
         }
 

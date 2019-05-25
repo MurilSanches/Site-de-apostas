@@ -5,56 +5,42 @@
 <section id="Login">
     <div class="container">
         <h1>Cadastrar</h1>
+        <p>Já tem cadastro, <a class="navbar-link" href="/Login">clique aqui</a></p>
         <div>
-            <form action="/Cadastro/Cadastrar" method="post">
-                <ul>
-                    <li><label>@Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })</label></li>
-                    <li>
-                        <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" name="u.Nome" required>
-                            <span class="a-field__label-wrap">
-                                <span class="a-field__label">Nome</span>
-                            </span>
-                        </label>
-                        <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" name="data" id="datepicker" required>
-                            <span class="a-field__label-wrap">
-                                <span class="a-field__label">Aniversario</span>
-                            </span>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" name="u.Email" type="email" required>
-                            <span class="a-field__label-wrap">
-                                <span class="a-field__label">Email</span>
-                            </span>
-                        </label>
-                        <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" type="email" required>
-                            <span class="a-field__label-wrap">
-                                <span class="a-field__label">Confirmar email</span>
-                            </span>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" name="u.Senha" type="password" required>
-                            <span class="a-field__label-wrap">
-                                <span class="a-field__label">Senha</span>
-                            </span>
-                        </label>
-                        <label class="field a-field a-field_a3 page__field">
-                            <input class="field__input a-field__input" type="password" required>
-                            <span class="a-field__label-wrap">
-                                <span class="a-field__label">Confirmar senha</span>
-                            </span>
-                        </label>
-                    </li>
-                    <li><button class="button" id="cadastrar" type="submit" value="Cadastrar">Cadastrar</button></li>
-                </ul>
+            <form method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="InputNome">Nome</label>
+                        <input type="text" class="form-control" name="u.Nome" id="inputNome" aria-describedby="nomeHelp" placeholder="Digite seu nome">
+                    </div>
+                    <div class='form-group col-md-6'>
+                        <label for="InputIdade">Idade</label>
+                        <input type="text" class="form-control" id="inputIdade" name="u.Idade" placeholder="Digite sua idade">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" name="u.Email" id="inputEmail" placeholder="Digite seu email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail2">Confirmar email</label>
+                        <input type="email" class="form-control" id="inputEmail2" placeholder="Digite seu email novamente">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputSenha">Senha</label>
+                        <input type="password" class="form-control" name="u.Senha" id="inputSenha" placeholder="Digite uma senha">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputSenha2">Confirmar senha</label>
+                        <input type="password" class="form-control" id="inputSenha2" placeholder="Digite a senha novamente">
+                    </div>
+                </div>
+                <button type="button" id="botaoSubmit" class="btn btn-primary">Cadastrar</button>
             </form>
-            <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal fade" id="ModalCadastro" role="dialog">
                 <div class="modal-dialog">
 
                     <!-- Modal content-->
@@ -70,7 +56,49 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-block pull-left" data-dismiss="modal">OK</button>
+                            @Html.ActionLink("OK", "Index", "Home", null, new { @class = "btn btn-success pull-left" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="ModalErroCadastro" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding:35px 50px;">
+                            <h4>Email ja cadastrado</h4>
+                        </div>
+                        <div class="modal-body" style="padding:40px 50px;">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="usrname">tente novamente com outro</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success  pull-left" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="ModalErros" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding:35px 50px;">
+                            <h4>Erros:</h4>
+                        </div>
+                        <div class="modal-body" style="padding:40px 50px;">
+                            <form role="form">
+                                <div class="form-group">
+                                    <ul id="erro" class="lista-erro"></ul>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="botaoModalErro" class="btn btn-success pull-left" data-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>
@@ -78,14 +106,91 @@
         </div>
     </div>
 </section>
-<script>
-    $(calendario = function () {
-        $("#datepicker").datepicker();
-    });
+<script type="text/javascript">
+
 
     $(document).ready(function () {
         $("#cadastrar").click(function () {
             $("#myModal").modal();
         });
+    });
+
+    $(document).on('click', '.number-spinner button', function () {
+        var btn = $(this),
+            oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+            newVal = 0;
+
+        if (btn.attr('data-dir') == 'up') {
+            newVal = parseInt(oldValue) + 1;
+        } else {
+            if (oldValue > 1) {
+                newVal = parseInt(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        btn.closest('.number-spinner').find('input').val(newVal);
+    });
+
+    cadastrar = function (nome, idade, email, senha) {
+        $.post("/Cadastro/Cadastrar", { nome, idade, email, senha }, function (resposta) {
+            if (resposta == "Cadastrado")
+                $("#ModalCadastro").modal();
+            else {
+                $("#ModalErroCadastro").modal();
+                $("#inputEmail").val("");
+                $("#inputEmail2").val("");
+            }
+        });
+    }
+
+    $("#botaoSubmit").on("click", function () {
+        var nome = $("#inputNome").val();
+        var idade = $("#inputIdade").val();
+        var email = $("#inputEmail").val();
+        var email2 = $("#inputEmail2").val();
+        var senha = $("#inputSenha").val();
+        var senha2 = $("#inputSenha2").val();
+        var erro = false;
+
+        if (nome == "" || nome == null) {
+            $("#erro").append("<li>Nome errado</li>");
+            erro = true;
+        }
+        if (email == "" || email == null) {
+            $("#erro").append("<li>Email errado</li>");
+            erro = true;
+        }
+        if (senha == "" || senha == null) {
+            $("#erro").append("<li>Senha errada</li>");
+            erro = true;            
+        }
+        if (idade < 0 || idade == "") {
+            $("#erro").append("<li>Idade errada</li>");
+            $("#inputIdade").val("");
+            erro = true;
+        }
+        if (senha != senha2) {
+            $("#erro").append("<li>Senhas diferentes</li>");
+            $("#inputSenha").val("");
+            $("#inputSenha2").val("");
+            erro = true;
+        }
+        if (email != email2) {
+            $("#erro").append("<li>Emails diferentes</li>");
+            $("#inputEmail").val("");
+            $("#inputEmail2").val("");
+            erro = true;
+        }
+        if (!erro) {
+            cadastrar(nome, idade, email, senha);           
+        }
+        if (erro) {
+            $("#ModalErros").modal();            
+        }
+    });
+
+    $("#botaoModalErro").on("click", function () {
+        $("li").remove();
     });
 </script>

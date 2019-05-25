@@ -16,30 +16,24 @@ namespace ProjetoBolao.Controllers
             return View();
         }
 
-        public ActionResult Cadastrar(Usuario u, string data)
+        public JsonResult Cadastrar(string nome, int idade, string email, string senha)
         {
-            if (u != null)
-            {
-                u.qntsPontos = default(int);
-                var idade = data;
-                var dia = int.Parse(idade.Substring(0, 2));
-                var mes = int.Parse(idade.Substring(3, 2));
-                var ano = int.Parse(idade.Substring(6, 4));
+            if (UsuarioDAO.Usuario(email) != null)
+                return Json("Email ja cadastrado");
 
-                ano = DateTime.Now.Year - ano;
-                if (DateTime.Now.Month < mes || (DateTime.Now.Month == mes && DateTime.Now.Day < dia))
-                    ano--;
+            Usuario u = new Usuario();
 
-                u.Idade = ano;
-                u.Foto = "../img/icone.png";
+            u.Nome = nome;
+            u.Idade = idade;
+            u.Email = email;
+            u.Senha = senha;
+            u.Foto = "../img/icone.png";
 
-                UsuarioDAO.Adicionar(u);
-                Session["usuarioLogado"] = u;
-                return RedirectToAction("Index", "Home");
-            }
-            else
-                return RedirectToAction("Index");
-        
+            UsuarioDAO.Adicionar(u);
+            Session["usuarioLogado"] = u;
+
+            return Json("Cadastrado");
+
         }
     }
 }

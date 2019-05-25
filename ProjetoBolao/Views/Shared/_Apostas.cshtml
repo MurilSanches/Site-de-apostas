@@ -12,29 +12,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.0/css/mdb.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.1/css/mdb.min.css" rel="stylesheet">
     <title>BETTING</title>
 </head>
 <body>
     <header>
         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
 
             @{
                 if (u != null)
                 {
                     <ul>
                         <li>
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
-                            <img src="@u.Foto" /><br />
-                            <label>Olá, @u.Nome</label><br />
+                            <img src="@u.Foto" />
+                            <label>Olá, @u.Nome</label>
                             <label><i class="fab fa-sketch"></i> @u.qntsPontos</label>
                         </li>
                     </ul>
                 }
                 else
                 {
-                    <img src="~/img/icone.png" />
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+                    <ul>
+                        <li><img src="~/img/icone.png" /></li>
+                    </ul>
+
                 }
             }
 
@@ -49,6 +50,8 @@
                 else
                 {
                     @Html.ActionLink("Olá, " + u.Nome, "Index", "Perfil", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Notificações", "Index", "Notificacao", null, new { @class = "nav-link" })
+
                     @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
                     @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
                     @Html.ActionLink("Sair ", "Sair", "Home", null, new { @class = "nav-link" })
