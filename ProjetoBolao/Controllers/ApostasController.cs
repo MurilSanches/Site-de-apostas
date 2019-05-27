@@ -21,9 +21,13 @@ namespace ProjetoBolao.Controllers
             return View();
         }
 
-        public ActionResult Votar(Votacao v)
-        {            
+        public JsonResult Votar(int idJogo, int idTime)
+        {
+            Votacao v = new Votacao();
+            v.CodTimeVotado = idTime;
+            v.CodJogo = idJogo;
             v.CodUsuario = ((Usuario)Session["usuarioLogado"]).Id;
+
             VotacaoDAO.Votar(v);
 
             Jogo j = JogoDAO.Jogo(v.CodJogo);
@@ -38,7 +42,7 @@ namespace ProjetoBolao.Controllers
                     j.QtdVotosTimeB += 1;
             }
             JogoDAO.Altera(j);
-            return RedirectToAction("Index", "Apostas");
+            return Json("Votado com sucesso");
         }
     }
 }

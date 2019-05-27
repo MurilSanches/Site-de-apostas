@@ -71,7 +71,7 @@
             }
 
 
-            <form action="/Apostas/Votar">
+            <form>
                 <div class="container-fluid">
                     <input type="hidden" name="v.CodJogo" value="@j.Id">
                     <ul>
@@ -103,16 +103,16 @@
                                         if (vot.CodTimeVotado == timeA.Id)
                                         {
 
-                                            <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime&#10003;</button>
+                                            <button href="#" name="v.CodTimeVotado" value="@timeA.Id+@j.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime&#10003;</button>
                                         }
                                         else
                                         {
-                                            <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime</button>
+                                            <button href="#" name="v.CodTimeVotado" value="@timeA.Id+@j.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime</button>
                                         }
                                     }
                                     else
                                     {
-                                        <button type="submit" id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" value="@timeA.Id">Vitoria do @timeA.NomeTime</button>
+                                        <button id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" onclick="votar(this.value)" value="@timeA.Id+@j.Id">Vitoria do @timeA.NomeTime</button>
 
                                     }
                                 </div>
@@ -121,16 +121,16 @@
                                     {
                                         if (vot.CodTimeVotado == 0)
                                         {
-                                            <button type="submit" href="#" name="v.CodTimeVotado" disabled value="0" class="btn btn-block btn-danger">Empate &#10003;</button>
+                                            <button  href="#" name="v.CodTimeVotado" disabled value="0+@j.Id" class="btn btn-block btn-danger">Empate &#10003;</button>
                                         }
                                         else
                                         {
-                                            <button type="submit" href="#" name="v.CodTimeVotado" disabled value="0" class="btn btn-block btn-danger">Empate</button>
+                                            <button href="#" name="v.CodTimeVotado" disabled value="0+@j.Id" class="btn btn-block btn-danger">Empate</button>
                                         }
                                     }
                                     else
                                     {
-                                        <button type="submit" id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-block btn-danger" value="0">Empate</button>
+                                        <button id="Votar" name="v.CodTimeVotado" href="#" onclick="votar(this.value)" class="btn btn-block btn-danger" value="0+@j.Id">Empate</button>
 
                                     }
                                 </div>
@@ -139,16 +139,16 @@
                                     {
                                         if (vot.CodTimeVotado == timeB.Id)
                                         {
-                                            <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
+                                            <button href="#" name="v.CodTimeVotado" disabled value="@timeB.Id+@j.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
                                         }
                                         else
                                         {
-                                            <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime</button>
+                                            <button href="#" name="v.CodTimeVotado" disabled value="@timeB.Id+@j.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime</button>
                                         }
                                     }
                                     else
                                     {
-                                        <button type="submit" id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-primary btn-block" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
+                                        <button id="Votar" name="v.CodTimeVotado" onclick="votar(this.value)" href="#" class="btn btn-primary btn-block" value="@timeB.Id+@j.Id">Vitoria do @timeB.NomeTime</button>
 
                                     }
                                 </div>
@@ -182,6 +182,14 @@
 
 <script>
 
+    votar = function (valorBotao) {
+        var ids = valorBotao.split("+");
 
+        var idJogo = ids[1];
+        var idTime = ids[0];
 
+        $.post("/Apostas/Votar", { idJogo, idTime }, function (resposta) {
+            
+        });
+    }
 </script>
