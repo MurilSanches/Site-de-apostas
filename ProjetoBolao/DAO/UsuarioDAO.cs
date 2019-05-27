@@ -12,7 +12,10 @@ namespace ProjetoBolao.DAO
         {
             using (var contexto = new SiteContext())
             {
-                return contexto.Usuario2.FirstOrDefault(u => u.Email == login && u.Senha == senha);
+                foreach (Usuario u in Lista())
+                    if (u.Email == login && u.Senha == senha)
+                        return u;
+                return null;
             }
         }
 

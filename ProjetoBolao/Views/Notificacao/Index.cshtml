@@ -3,8 +3,13 @@
         <h1>Notificações</h1>
         @if (ViewBag.Notificacoes.Count != 0)
         {
-<ul>
-                @foreach (ProjetoBolao.Models.Notificacao v in ViewBag.Notificacoes)
+            <ul>
+                @{
+                    List<ProjetoBolao.Models.Notificacao> n = ViewBag.Notificacoes;
+
+                    n.Reverse();
+                }
+                @foreach (ProjetoBolao.Models.Notificacao v in n)
                 {
                     var data = v.data;
                     string semana = "";
@@ -21,7 +26,6 @@
 
                     if (semana == "Monday")
                     {
-                        semana = "Segunda";
                         semana = "Segunda";
                     }
                     if (semana == "Tuesday")
@@ -49,15 +53,29 @@
                         semana = "Domingo";
                     }
 
-
-                    if (semana != "")
+                    if (v.pontosGanhos > 0)
                     {
-                        <li>Você ganhou @v.pontosGanhos pontos no jogo do @timeA.NomeTime contra @timeB.NomeTime que aconteceu @semana as @data.TimeOfDay.Hours</li>
+                        if (semana != "")
+                        {
+                            <li>Você ganhou @v.pontosGanhos pontos no jogo do @timeA.NomeTime contra @timeB.NomeTime que aconteceu @semana as @data.TimeOfDay.Hours</li>
+                        }
+                        else
+                        {
+                            <li>Você ganhou @v.pontosGanhos pontos no jogo do @timeA.NomeTime contra @timeB.NomeTime que aconteceu @data.Date</li>
+                        }
                     }
                     else
                     {
-                        <li>Você ganhou @v.pontosGanhos pontos no jogo do @timeA.NomeTime contra @timeB.NomeTime que aconteceu @data.Date</li>
+                        if (semana != "")
+                        {
+                            <li>Você não ganhou nenhum ponto no jogo do @timeA.NomeTime contra @timeB.NomeTime que aconteceu @semana as @data.TimeOfDay.Hours</li>
+                        }
+                        else
+                        {
+                            <li>Você não ganhou nenhum ponto no jogo do @timeA.NomeTime contra @timeB.NomeTime que aconteceu @data.Date</li>
+                        }
                     }
+
                 }
             </ul>
         }

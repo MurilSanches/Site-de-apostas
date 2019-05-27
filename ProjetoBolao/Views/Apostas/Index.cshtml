@@ -95,51 +95,68 @@
                         </li>
                         <li>
                             <br />
-                            @if (vot != null)
-                            {
-                                if (vot.CodTimeVotado == timeA.Id)
-                                {
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    @if (vot != null)
+                                    {
 
-                                    <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime&#10003;</button>
-                                }
-                                else
-                                {
-                                    <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-primary">Vitoria do @timeA.NomeTime</button>
-                                }
-                            }
-                            else
-                            {
-                                <button type="submit" id="Votar" name="v.CodTimeVotado" class="btn btn-primary" value="@timeA.Id">Vitoria do @timeA.NomeTime</button>
+                                        if (vot.CodTimeVotado == timeA.Id)
+                                        {
 
-                            }
-                            @if (vot != null)
-                            {
-                                if (vot.CodTimeVotado == 0)
-                                {
-                                    <button type="submit" href="#" name="v.CodTimeVotado" disabled value="0" class="btn btn-danger">Empate &#10003;</button>
-                                }
-                                else
-                                {
-                                    <button type="submit" href="#" name="v.CodTimeVotado" disabled value="0" class="btn btn-danger">Empate</button>
-                                }
-                            }
-                            else
-                            {
-                                <button type="submit" id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-danger" value="0">Empate</button>
+                                            <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime&#10003;</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" href="#" name="v.CodTimeVotado" value="@timeA.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" value="@timeA.Id">Vitoria do @timeA.NomeTime</button>
 
-                            }
+                                    }
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @if (vot != null)
+                                    {
+                                        if (vot.CodTimeVotado == 0)
+                                        {
+                                            <button type="submit" href="#" name="v.CodTimeVotado" disabled value="0" class="btn btn-block btn-danger">Empate &#10003;</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" href="#" name="v.CodTimeVotado" disabled value="0" class="btn btn-block btn-danger">Empate</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-block btn-danger" value="0">Empate</button>
 
-                            @if (vot != null)
-                            {
-                                if (vot.CodTimeVotado == timeB.Id)
-                                {
-                                    <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
-                                }
-                                else
-                                {
-                                    <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-primary">Vitoria do @timeB.NomeTime</button>
-                                }
-                                <br /><br />
+                                    }
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @if (vot != null)
+                                    {
+                                        if (vot.CodTimeVotado == timeB.Id)
+                                        {
+                                            <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" href="#" name="v.CodTimeVotado" disabled value="@timeB.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-primary btn-block" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
+
+                                    }
+                                </div>
+                            </div>
+                            <br />
+                            @if(vot != null)
+                             {
+                                
                                 <div class="progress" style="height: 20px;">
                                     <div class="progress-bar progress-bar-success" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
                                         @porcentagemA%
@@ -150,14 +167,8 @@
                                     <div class="progress-bar progress-bar-warning" role="progressbar" style="width:@porcentagemB%" aria-valuemin="0" aria-valuemax="100">
                                         @porcentagemB%
                                     </div>
-                                </div>
+                                </div><br />
                             }
-                            else
-                            {
-                                <button type="submit" id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-primary" value="@timeB.Id">Vitoria do @timeB.NomeTime</button>
-
-                            }
-                            <br /><br />
                         </li>
                     </ul>
                     <br />
@@ -169,14 +180,8 @@
     </div>
 </section>
 
-@*<script>
+<script>
 
-    $("#votar").on("click", function () {
-        votar()
-    });
 
-    votar = function () {
-        var idJogo = $();
-    }
 
-</script>*@
+</script>
