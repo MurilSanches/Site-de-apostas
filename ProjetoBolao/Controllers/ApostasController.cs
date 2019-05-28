@@ -42,7 +42,7 @@ namespace ProjetoBolao.Controllers
                     j.QtdVotosTimeB += 1;
             }
             JogoDAO.Altera(j);
-            return Json("Votado com sucesso");
+            return Json(true);
         }
     }
 }

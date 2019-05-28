@@ -87,11 +87,11 @@ ul {
 header {
     background: rgb(72, 156, 72);
     color: white;
-    padding-top: 30px;
+    padding-top: 5px;
     min-height: 60px;
     width: 100%;
     position: fixed;
-    z-index: 100000;
+    z-index: 100000;    
     border-bottom: 3px solid black;
 }
 
@@ -108,8 +108,9 @@ header {
 
     header li {
         float: left;
-        display: inline;
+        display: inline;        
         padding: 0 20px 0 20px;
+
     }
 
     header #logo {
@@ -161,8 +162,16 @@ header {
     background-size: cover;
     text-align: center;
     color: rgb(15, 14, 14);
-    font-family: 'Cabin', sans-serif;
-    font-size:18px;
+    font-family: 'Cabin', sans-serif;    
+}
+
+#apostas label{
+    font-size:16px !important;
+}
+
+#apostas  button{
+    font-size:16px !important;
+
 }
 
     #apostas h1 {
@@ -177,10 +186,15 @@ header {
         list-style: none;
     }
 
-    #aposta li {
-        text-align:center;
-        margin-bottom:10px !important;
-    }
+#aposta li {
+    text-align: center;
+    font-size: 16px !important;
+}
+
+
+    #apostas{
+        font-size:16px !important;
+   }
 
     #apostas a.todosOsJogos{
         margin-top:30px;
@@ -249,13 +263,12 @@ footer {
     left: 0;
     background-color: rgb(17, 17, 17);
     overflow-x: hidden;
-    padding-top: 60px;
     transition: 0.5s;
     font-family: 'Cabin', sans-serif;
 }
 
     .sidenav ul {
-        margin-top: 70px;
+        margin-top: 150px;
         margin-bottom: 5px;
     }
 
@@ -292,6 +305,7 @@ footer {
         }
 
     .sidenav .closebtn {
+        margin-top:10px;
         float: right;
         top: 0;
         font-size: 30px;

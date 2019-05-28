@@ -5,38 +5,188 @@
     </div>
 </section>
 <section id="apostas">
-    <div class="container60">
+    <div class="container">
         <div id="main-col">
             <h1>Jogos mais votados</h1>
-            @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
-            {
-                ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
-                ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
-                <ul>
-                    <li>
-                    <div class="card-group">
-                        <!-- Card 1 -->
-                        <div class="card">
-                            <div class="card-header"><label>@timeA.NomeTime</label></div>
-                            <div class="card-body">
-                                <img src="@timeA.Foto" alt="Photo of sunset">
+
+            @{
+
+                foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
+                {
+                    ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
+                    ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
+
+                    List<ProjetoBolao.Models.Votacao> votos = new List<ProjetoBolao.Models.Votacao>();
+                    ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["UsuarioLogado"];
+                    ProjetoBolao.Models.Votacao vot = null;
+
+                    double qtdA = 0;
+                    double qtdB = 0;
+                    double qtdEmpate = 0;
+                    double porcentagemA = 0, porcentagemB = 0, porcentagemEmpate = 0;
+
+                    if (ViewBag.Votos != null)
+                    {
+                        foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
+                        {
+                            if (v.CodJogo == j.Id)
+                            {
+                                vot = v;
+                            }
+
+                        }
+                        foreach (ProjetoBolao.Models.Votacao v in ViewBag.TodosOsVotos)
+                        {
+                            if (v.CodJogo == j.Id)
+                            {
+                                votos.Add(v);
+                            }
+                        }
+
+                        foreach (ProjetoBolao.Models.Votacao v in votos)
+                        {
+                            if (v.CodTimeVotado == timeA.Id)
+                            {
+                                qtdA++;
+                            }
+                            else
+                            {
+                                if (v.CodTimeVotado == timeB.Id)
+                                {
+                                    qtdB++;
+                                }
+                                else
+                                {
+                                    qtdEmpate++;
+                                }
+                            }
+                        }
+                    }
+
+                    porcentagemA = Math.Round((qtdA / double.Parse(votos.Count() + "") * 100));
+                    porcentagemB = Math.Round((qtdB / double.Parse(votos.Count() + "") * 100));
+                    porcentagemEmpate = Math.Round((qtdEmpate / double.Parse(votos.Count() + "") * 100));
+
+                    <ul>
+                        <li>
+                            <div class="card-group">
+                                <!-- Card 1 -->
+                                <div class="card">
+                                    <div class="card-header"><label>@timeA.NomeTime</label></div>
+                                    <div class="card-body">
+                                        <img src="@timeA.Foto" alt="Photo of sunset">
+                                    </div>
+                                </div>
+                                <!-- Card 2 -->
+                                <div class="card">
+                                    <div class="card-header"><label>@timeB.NomeTime</label></div>
+                                    <div class="card-body ">
+                                        <img src="@timeB.Foto" alt="Photo of sunset">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Card 2 -->
-                        <div class="card">
-                            <div class="card-header"><label>@timeB.NomeTime</label></div>
-                            <div class="card-body ">
-                                <img src="@timeB.Foto" alt="Photo of sunset">
+                            <br /><br />
+                        </li>
+                        @if (Session["usuarioLogado"] == null)
+                        {
+                            <li>Quer votar, cadastra-se @Html.ActionLink("clicando aqui", "Index", "Cadastro") e comece a apostar </li>
+                        }
+                        else
+                        {
+                        <li>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    @if (vot != null)
+                                    {
+
+                                        if (vot.CodTimeVotado == timeA.Id)
+                                        {
+
+                                            <button href="#" name="v.CodTimeVotado" value="@timeA.Id+@j.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime&#10003;</button>
+                                        }
+                                        else
+                                        {
+                                            <button href="#" name="v.CodTimeVotado" value="@timeA.Id+@j.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" onclick="votar(this.value)" value="@timeA.Id+@j.Id">Vitoria do @timeA.NomeTime</button>
+
+                                    }
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @if (vot != null)
+                                    {
+                                        if (vot.CodTimeVotado == 0)
+                                        {
+                                            <button href="#" name="v.CodTimeVotado" disabled value="0+@j.Id" class="btn btn-block btn-danger">Empate &#10003;</button>
+                                        }
+                                        else
+                                        {
+                                            <button href="#" name="v.CodTimeVotado" disabled value="0+@j.Id" class="btn btn-block btn-danger">Empate</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button id="Votar" name="v.CodTimeVotado" href="#" onclick="votar(this.value)" class="btn btn-block btn-danger" value="0+@j.Id">Empate</button>
+
+                                    }
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @if (vot != null)
+                                    {
+                                        if (vot.CodTimeVotado == timeB.Id)
+                                        {
+                                            <button href="#" name="v.CodTimeVotado" disabled value="@timeB.Id+@j.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
+                                        }
+                                        else
+                                        {
+                                            <button href="#" name="v.CodTimeVotado" disabled value="@timeB.Id+@j.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button id="Votar" name="v.CodTimeVotado" onclick="votar(this.value)" href="#" class="btn btn-primary btn-block" value="@timeB.Id+@j.Id">Vitoria do @timeB.NomeTime</button>
+
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <br /><br />
-                    </li>
-                    <li>Quer votar, cadastra-se @Html.ActionLink("clicando aqui","Index", "Cadastro") e comece a apostar </li>
-                </ul>                
+                            <br />
+                            @if (vot != null)
+                            {
+
+                                <div class="progress" style="height: 20px;">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
+                                        @porcentagemA%
+                                    </div>
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@porcentagemEmpate%" aria-valuemin="0" aria-valuemax="100">
+                                        @porcentagemEmpate%
+                                    </div>
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width:@porcentagemB%" aria-valuemin="0" aria-valuemax="100">
+                                        @porcentagemB%
+                                    </div>
+                                </div>
+                                <br />
+                            }
+                        </li>
+                        }
+                    </ul>
+                }
             }
-            @Html.ActionLink("Ver mais jogos", "Index", "Apostas", null, new { @class = "todosOsJogos"})
         </div>
     </div>
 </section>
+<script>
 
+    votar = function (valorBotao) {
+        var ids = valorBotao.split("+");
+
+        var idJogo = ids[1];
+        var idTime = ids[0];
+
+        $.post("/Apostas/Votar", { idJogo, idTime }, function (resposta) {
+
+        });
+    }
+</script>
