@@ -21,9 +21,10 @@ namespace ProjetoBolao.Controllers
             return View();
         }
 
-        public JsonResult Votar(int idJogo, int idTime)
+        public JsonResult Votar(int idJogo, int idTime, int posicao)
         {
             Votacao v = new Votacao();
+            Session["posicao"] = posicao;
             v.CodTimeVotado = idTime;
             v.CodJogo = idJogo;
             v.CodUsuario = ((Usuario)Session["usuarioLogado"]).Id;

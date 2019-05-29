@@ -58,6 +58,7 @@ namespace ProjetoBolao.Controllers
             }
 
             UsuarioDAO.Alterar(user);
+            Session["usuarioLogado"] = user;
 
             return RedirectToAction("Index", "Perfil");
         }

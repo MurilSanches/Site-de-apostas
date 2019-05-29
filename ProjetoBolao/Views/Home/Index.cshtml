@@ -111,7 +111,7 @@
                                     }
                                     else
                                     {
-                                        <button id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" onclick="votar(this.value)" value="@timeA.Id+@j.Id">Vitoria do @timeA.NomeTime</button>
+                                        <button id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" onclick="votar(this\)" value="@timeA.Id+@j.Id">Vitoria do @timeA.NomeTime</button>
 
                                     }
                                 </div>
@@ -129,7 +129,7 @@
                                     }
                                     else
                                     {
-                                        <button id="Votar" name="v.CodTimeVotado" href="#" onclick="votar(this.value)" class="btn btn-block btn-danger" value="0+@j.Id">Empate</button>
+                                        <button id="Votar" name="v.CodTimeVotado" href="#" onclick="votar(this)" class="btn btn-block btn-danger" value="0+@j.Id">Empate</button>
 
                                     }
                                 </div>
@@ -147,7 +147,7 @@
                                     }
                                     else
                                     {
-                                        <button id="Votar" name="v.CodTimeVotado" onclick="votar(this.value)" href="#" class="btn btn-primary btn-block" value="@timeB.Id+@j.Id">Vitoria do @timeB.NomeTime</button>
+                                        <button id="Votar" name="v.CodTimeVotado" onclick="votar(this)" href="#" class="btn btn-primary btn-block" value="@timeB.Id+@j.Id">Vitoria do @timeB.NomeTime</button>
 
                                     }
                                 </div>
@@ -157,10 +157,10 @@
                             {
 
                                 <div class="progress" style="height: 20px;">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
                                         @porcentagemA%
                                     </div>
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@porcentagemEmpate%" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" style="width:@porcentagemEmpate%" aria-valuemin="0" aria-valuemax="100">
                                         @porcentagemEmpate%
                                     </div>
                                     <div class="progress-bar progress-bar-warning" role="progressbar" style="width:@porcentagemB%" aria-valuemin="0" aria-valuemax="100">
@@ -179,14 +179,23 @@
 </section>
 <script>
 
-    votar = function (valorBotao) {
-        var ids = valorBotao.split("+");
+    window.onload = function () {
+        $(document).scrollTop(@Session["posicao"]);
+
+    };
+    votar = function (botao) {
+        var ids = botao.value.split("+");
 
         var idJogo = ids[1];
         var idTime = ids[0];
 
-        $.post("/Apostas/Votar", { idJogo, idTime }, function (resposta) {
+        var posicao = $(botao).offset().top - 600;
+
+        $.ajaxSetup({ async: true });
+        $.when($.post("/Apostas/Votar", { idJogo, idTime, posicao}, null)).then(function () {
 
         });
+
+
     }
 </script>

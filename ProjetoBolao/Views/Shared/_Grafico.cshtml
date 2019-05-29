@@ -17,47 +17,53 @@
 <body>
     <header>
         <div id="mySidenav" class="sidenav">
+
+            @{
+            if (u != null)
+            {
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+                        <img src="@u.Foto" />
+                    </li>
+                    <li>
+                        <label>Olá, @u.Nome</label>
+                        <label>Pontos : @u.qntsPontos</label>
+                    </li>
+                </ul>
+        }
+        else
+        {
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
 
-            @{
-                if (u != null)
-                {
-                    <ul>
-                        <li>
-                            <img src="@u.Foto" />
-                            <label>Olá, @u.Nome</label>
-                            <label><i class="fab fa-sketch"></i> @u.qntsPontos</label>
-                        </li>
-                    </ul>
-                }
-                else
-                {
-
-                    <ul>
-                        <li><img src="~/img/icone.png" /></li>
-                    </ul>
-                }
-
+    }
             }
 
 
             @{
-                if (u == null)
-                {
-                    @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
-                    @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
-                    @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
-                }
-                else
-                {
-                    @Html.ActionLink("Olá, " + u.Nome, "Index", "Perfil", null, new { @class = "nav-link" })
-                    @Html.ActionLink("Notificações", "Index", "Notificacao", null, new { @class = "nav-link" })
-                    @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
-                    @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
-                    @Html.ActionLink("Sair ", "Sair", "Home", null, new { @class = "nav-link" })}
+            if (u == null)
+            {
+                <ul class="link">
+                    <li>
+                        @Html.ActionLink("Entrar", "Index", "Login", null, new { @class = "nav-link" })
+                        @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
+                        @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
+                    </li>
+                </ul>
+        }
+        else
+        {
+            @Html.ActionLink("Perfil", "Index", "Perfil", null, new { @class = "nav-link" })
+            @Html.ActionLink("Notificações", "Index", "Notificacao", null, new { @class = "nav-link" })
+            @Html.ActionLink("Ranking", "Index", "Ranking", null, new { @class = "nav-link" })
+            @Html.ActionLink("Grafico", "Grafico", "Home", null, new { @class = "nav-link" })
+
+            @Html.ActionLink("Sair ", "Sair", "Home", null, new { @class = "nav-link" })
+    }
             }
         </div>
-        <a onclick="openNav()" class="menuzinho" href="#">&#9776;</a>
+        <a onclick="openNav()" href="javascript:void(0)" class="menuzinho">&#9776;</a>
+
         <div id="main">
             <script>
                 function openNav() {

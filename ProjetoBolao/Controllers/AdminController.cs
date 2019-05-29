@@ -132,6 +132,18 @@ namespace ProjetoBolao.Controllers
             return RedirectToAction("AlteraUsuario", "Admin");
         }
 
+        public ActionResult AlterarSenha(Usuario u)
+        {
+            Usuario user = UsuarioDAO.Usuario(u.Email);
+
+            user.Senha = u.Senha;
+
+            UsuarioDAO.Alterar(user);
+            Session["usuarioLogado"] = user;
+
+            return RedirectToAction("Index", "Admin");
+        }
+
         [HttpPost]
         public ActionResult AlteraFoto(Usuario u, HttpPostedFileBase upload)
         {
@@ -156,6 +168,33 @@ namespace ProjetoBolao.Controllers
             UsuarioDAO.Alterar(user);
 
             return RedirectToAction("AlteraUsuario", "Admin");
+        }
+
+        [HttpPost]
+        public ActionResult AlterarFoto(Usuario u, HttpPostedFileBase upload)
+        {
+            Usuario user = UsuarioDAO.Usuario(u.Email);
+
+            if (upload != null)
+            {
+                var uploadPath = Server.MapPath("~/img/imgUsuarios");
+                string caminhoArq = Path.Combine(@uploadPath, user.Nome + Path.GetExtension(upload.FileName));
+
+                string[] extensaoPermitida = { ".gif", ".png", ".jpg", ".jpeg" };
+
+                for (int i = 0; i < extensaoPermitida.Length; i++)
+                    if (Path.GetExtension(caminhoArq) == extensaoPermitida[i])
+                    {
+                        upload.SaveAs(caminhoArq);
+                        break;
+                    }
+                user.Foto = "../img/imgUsuarios/" + user.Nome + Path.GetExtension(upload.FileName);
+            }
+
+            UsuarioDAO.Alterar(user);
+            Session["usuarioLogado"] = user;
+
+            return RedirectToAction("Index", "Admin");
         }
 
         public ActionResult AlteraEmail(Usuario u)
