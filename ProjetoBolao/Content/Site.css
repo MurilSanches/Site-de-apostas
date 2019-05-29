@@ -87,6 +87,8 @@ ul {
 /* Header **/
 header {
     background: rgb(72, 156, 72);
+    margin:0;
+    top:0;
     color: white;
     padding-top: 5px;
     min-height: 60px;
@@ -160,11 +162,16 @@ header {
 /* APOSTAS */
 #apostas {
     min-height: 800px;
-    background-size: cover;
     text-align: center;
     color: rgb(15, 14, 14);
-    font-family: 'Cabin', sans-serif; 
-    z-index:0;
+    font-family: 'Cabin', sans-serif;
+    z-index: 0;
+    font-size: 16px !important;
+    /*//min-height: 800px;
+    //background: url("../img/fundoApostas.jpg");
+    //background-size: cover;
+    //min-height: 100%;
+    //width: 100%;*/
 }
 
 #apostas label{
@@ -186,17 +193,13 @@ header {
         margin-top: 30px;
         border: 1px solid black;
         list-style: none;
+        background-color:white;
     }
 
 #aposta li {
     text-align: center;
     font-size: 16px !important;
 }
-
-
-    #apostas{
-        font-size:16px !important;
-   }
 
     #apostas a.todosOsJogos{
         margin-top:30px;
@@ -205,6 +208,73 @@ header {
         color:black;
         text-decoration:none;
     }
+
+/* Pagina apostas */
+
+#aposta {
+    min-height: 800px;
+    text-align: center;
+    color: rgb(15, 14, 14);
+    font-family: 'Cabin', sans-serif;
+    z-index: 0;
+    font-size: 16px !important;
+    /*//min-height: 800px;
+    //background: url("../img/fundoApostas.jpg");
+    //background-size: cover;
+    //min-height: 100%;
+    //width: 100%;*/
+}
+
+    #aposta label {
+        font-size: 16px !important;
+    }
+
+    #aposta button {
+        font-size: 16px !important;
+    }
+
+    #aposta h1 {
+        margin-top: 130px;
+        margin-bottom: 30px;
+    }
+
+
+    #aposta ul.jogos {
+        margin-top: 30px;
+        border: 1px solid black;
+        list-style: none;
+        background-color: white;
+    }
+
+#aposta li {
+    text-align: center;
+    font-size: 16px !important;
+}
+
+#aposta a.todosOsJogos {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    float: right;
+    color: black;
+    text-decoration: none;
+}
+
+/*#menu-lateral {
+    min-height: 800px;
+    max-width:30%;
+    text-align: center;
+    color: rgb(15, 14, 14);
+    font-family: 'Cabin', sans-serif;
+    z-index: 0;
+    float: left;
+    font-size: 16px !important;
+}
+
+#menu-lateral ul.esportes {
+   margin-top:150px;
+}*/
+
+
 
 
 /* RANKING */
@@ -438,6 +508,23 @@ modal-header .close {
     color: rgb(15, 14, 14);
 }
 
+#Login ul{
+    float:left;
+    list-style:none;
+}
+
+    #Login li a {
+        margin-right: 15px;
+        color: black;
+    }
+
+        #Login li a:hover {
+            color: gray;
+            text-decoration:none;
+        }
+
+s
+
     #Login input {
         margin-bottom: 30px;
     }
@@ -485,3 +572,5 @@ modal-header .close {
         min-height: 50px;
         border: 0.5px solid black;
     }
+
+

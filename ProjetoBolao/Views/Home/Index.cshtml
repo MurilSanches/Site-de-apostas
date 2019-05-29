@@ -85,11 +85,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <br /><br />
+                            <br />
                         </li>
                         @if (Session["usuarioLogado"] == null)
                         {
-                            <li>Quer votar, cadastra-se @Html.ActionLink("clicando aqui", "Index", "Cadastro") e comece a apostar </li>
+                            <li>Quer votar, cadastra-se @Html.ActionLink("clicando aqui", "Index", "Cadastro") e comece a apostar <br /><br /></li>
                         }
                         else
                         {

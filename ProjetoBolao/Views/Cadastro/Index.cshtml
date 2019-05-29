@@ -5,41 +5,47 @@
 <section id="Login">
     <div class="container">
         <h1>Cadastrar</h1>
-        <p>Já tem cadastro, <a class="navbar-link" href="/Login">clique aqui</a></p>
-        <div>
-            <form method="post">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="InputNome">Nome</label>
-                        <input type="text" class="form-control" name="u.Nome" id="inputNome" aria-describedby="nomeHelp" placeholder="Digite seu nome">
-                    </div>
-                    <div class='form-group col-md-6'>
-                        <label for="InputIdade">Idade</label>
-                        <input type="text" class="form-control" id="inputIdade" name="u.Idade" placeholder="Digite sua idade">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" name="u.Email" id="inputEmail" placeholder="Digite seu email">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail2">Confirmar email</label>
-                        <input type="email" class="form-control" id="inputEmail2" placeholder="Digite seu email novamente">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputSenha">Senha</label>
-                        <input type="password" class="form-control" name="u.Senha" id="inputSenha" placeholder="Digite uma senha">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputSenha2">Confirmar senha</label>
-                        <input type="password" class="form-control" id="inputSenha2" placeholder="Digite a senha novamente">
-                    </div>
-                </div>
-                <button type="button" id="botaoSubmit" class="btn btn-primary">Cadastrar</button>
-            </form>
+        <br />
+       <div>
+           <form method="post">
+               <div class="form-row">
+                   <div class="form-group col-md-6">
+                       <label for="InputNome">Nome</label>
+                       <input type="text" class="form-control" name="u.Nome" id="inputNome" aria-describedby="nomeHelp" placeholder="Digite seu nome">
+                   </div>
+                   <div class='form-group col-md-6'>
+                       <label for="InputIdade">Idade</label>
+                       <input type="text" class="form-control" id="inputIdade" name="u.Idade" placeholder="Digite sua idade">
+                   </div>
+               </div>
+               <div class="form-row">
+                   <div class="form-group col-md-6">
+                       <label for="inputEmail">Email</label>
+                       <input type="email" class="form-control" name="u.Email" id="inputEmail" placeholder="Digite seu email">
+                   </div>
+                   <div class="form-group col-md-6">
+                       <label for="inputEmail2">Confirmar email</label>
+                       <input type="email" class="form-control" id="inputEmail2" placeholder="Digite seu email novamente">
+                   </div>
+               </div>
+               <div class="form-row">
+                   <div class="form-group col-md-6">
+                       <label for="inputSenha">Senha</label>
+                       <input type="password" class="form-control" name="u.Senha" id="inputSenha" placeholder="Digite uma senha">
+                   </div>
+                   <div class="form-group col-md-6">
+                       <label for="inputSenha2">Confirmar senha</label>
+                       <input type="password" class="form-control" id="inputSenha2" placeholder="Digite a senha novamente">
+                   </div>
+               </div>
+               <ul>
+                   <li>
+                        <a href="/Login/"><i class="fa fa-user"></i> Entrar</a>
+                   </li>
+               </ul>
+               <br /><br />
+               <button type="button" id="botaoSubmit" class="btn btn-primary">Cadastrar</button>
+           </form>
             <div class="modal fade" id="ModalCadastro" role="dialog">
                 <div class="modal-dialog">
 

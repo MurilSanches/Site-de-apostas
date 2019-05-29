@@ -9,14 +9,15 @@ using ProjetoBolao.Filtros;
 
 namespace ProjetoBolao.Controllers
 {
-    [AutorizacaoFilterAttribute]
+
     public class ApostasController : Controller
     {
         public ActionResult Index()
         {
             ViewBag.Jogos = JogoDAO.ListaJogo();
             Usuario u = (Usuario)Session["usuarioLogado"];
-            ViewBag.Votos = VotacaoDAO.ListaDeVotosDoUsuario(u.Id);
+            if(u != null)
+                ViewBag.Votos = VotacaoDAO.ListaDeVotosDoUsuario(u.Id);
             ViewBag.TodosOsVotos = VotacaoDAO.Lista();
             return View();
         }

@@ -3,8 +3,13 @@
     double porcentagemA = 0, porcentagemB = 0, porcentagemEmpate = 0;
 }
 
-<section id="apostas">
+<section id="aposta">
     <div class="container">
+        @*<nav id="menu-lateral">
+            <ul class="esportes">
+                <li>Esportes</li>
+            </ul>
+        </nav>*@
         <div id="main-col">
             <h1>Todos os jogos</h1>
         </div>
@@ -74,7 +79,7 @@
             <form>
                 <div class="container-fluid">
                     <input type="hidden" name="v.CodJogo" value="@j.Id">
-                    <ul>
+                    <ul class="jogos">
                         <li>
                             <div class="card-group">
                                 <!-- Card 1 -->
@@ -93,94 +98,103 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <br />
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    @if (vot != null)
-                                    {
-
-                                        if (vot.CodTimeVotado == timeA.Id)
+                        @if (Session["usuarioLogado"] == null)
+                        {
+                            
+                        <li><br />Quer votar, cadastra-se @Html.ActionLink("clicando aqui", "Index", "Cadastro") e comece a apostar <br /><br /></li>
+                        }
+                        else
+                        {
+                            <li>
+                                <br />
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        @if (vot != null)
                                         {
 
-                                            <button href="#" name="v.CodTimeVotado" value="@timeA.Id+@j.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime&#10003;</button>
+                                            if (vot.CodTimeVotado == timeA.Id)
+                                            {
+
+                                                <button href="#" name="v.CodTimeVotado" value="@timeA.Id+@j.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime&#10003;</button>
+                                            }
+                                            else
+                                            {
+                                                <button href="#" name="v.CodTimeVotado" value="@timeA.Id+@j.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime</button>
+                                            }
                                         }
                                         else
                                         {
-                                            <button href="#" name="v.CodTimeVotado" value="@timeA.Id+@j.Id" disabled class="btn btn-block btn-primary">Vitoria do @timeA.NomeTime</button>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <button id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" onclick="votar(this)" value="@timeA.Id+@j.Id">Vitoria do @timeA.NomeTime</button>
+                                            <button id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" onclick="votar(this)" value="@timeA.Id+@j.Id">Vitoria do @timeA.NomeTime</button>
 
-                                    }
-                                </div>
-                                <div class="form-group col-md-4">
-                                    @if (vot != null)
-                                    {
-                                        if (vot.CodTimeVotado == 0)
+                                        }
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        @if (vot != null)
                                         {
-                                            <button  href="#" name="v.CodTimeVotado" disabled value="0+@j.Id" class="btn btn-block btn-danger">Empate &#10003;</button>
+                                            if (vot.CodTimeVotado == 0)
+                                            {
+                                                <button href="#" name="v.CodTimeVotado" disabled value="0+@j.Id" class="btn btn-block btn-danger">Empate &#10003;</button>
+                                            }
+                                            else
+                                            {
+                                                <button href="#" name="v.CodTimeVotado" disabled value="0+@j.Id" class="btn btn-block btn-danger">Empate</button>
+                                            }
                                         }
                                         else
                                         {
-                                            <button href="#" name="v.CodTimeVotado" disabled value="0+@j.Id" class="btn btn-block btn-danger">Empate</button>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <button id="Votar" name="v.CodTimeVotado" href="#" onclick="votar(this)" class="btn btn-block btn-danger" value="0+@j.Id">Empate</button>
+                                            <button id="Votar" name="v.CodTimeVotado" href="#" onclick="votar(this)" class="btn btn-block btn-danger" value="0+@j.Id">Empate</button>
 
-                                    }
-                                </div>
-                                <div class="form-group col-md-4">
-                                    @if (vot != null)
-                                    {
-                                        if (vot.CodTimeVotado == timeB.Id)
+                                        }
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        @if (vot != null)
                                         {
-                                            <button href="#" name="v.CodTimeVotado" disabled value="@timeB.Id+@j.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
+                                            if (vot.CodTimeVotado == timeB.Id)
+                                            {
+                                                <button href="#" name="v.CodTimeVotado" disabled value="@timeB.Id+@j.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime &#10003;</button>
+                                            }
+                                            else
+                                            {
+                                                <button href="#" name="v.CodTimeVotado" disabled value="@timeB.Id+@j.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime</button>
+                                            }
                                         }
                                         else
                                         {
-                                            <button href="#" name="v.CodTimeVotado" disabled value="@timeB.Id+@j.Id" class="btn btn-block btn-primary">Vitoria do @timeB.NomeTime</button>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <button id="Votar" name="v.CodTimeVotado" onclick="votar(this)" href="#" class="btn btn-primary btn-block" value="@timeB.Id+@j.Id">Vitoria do @timeB.NomeTime</button>
+                                            <button id="Votar" name="v.CodTimeVotado" onclick="votar(this)" href="#" class="btn btn-primary btn-block" value="@timeB.Id+@j.Id">Vitoria do @timeB.NomeTime</button>
 
-                                    }
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                            <br />
-                            @if(vot != null)
-                             {
-                                
-                                <div class="progress" style="height: 20px;">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
-                                        @porcentagemA%
-                                    </div>
-                                    <div class="progress-bar progress-bar-success" role="progressbar" style="width:@porcentagemEmpate%" aria-valuemin="0" aria-valuemax="100">
-                                        @porcentagemEmpate%
-                                    </div>
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width:@porcentagemB%" aria-valuemin="0" aria-valuemax="100">
-                                        @porcentagemB%
-                                    </div>
-                                </div><br />
+                                <br />
+                                @if (vot != null)
+                                {
+
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@porcentagemA%" aria-valuemin="0" aria-valuemax="100">
+                                            @porcentagemA%
+                                        </div>
+                                        <div class="progress-bar progress-bar-success" role="progressbar" style="width:@porcentagemEmpate%" aria-valuemin="0" aria-valuemax="100">
+                                            @porcentagemEmpate%
+                                        </div>
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" style="width:@porcentagemB%" aria-valuemin="0" aria-valuemax="100">
+                                            @porcentagemB%
+                                        </div>
+                                    </div><br />
+                                }
+                            </li>
                             }
-                        </li>
-                    </ul>
-                    <br />
-                    <br />
-                    <br />
-                </div>
-            </form>
-        }
-    </div>
-</section>
+                        </ul>
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                </form>
+            
+                        }
+                    </div>
+                </section>
 
-<script>
+                <script>
     window.onload = function () {
         $(document).scrollTop(@Session["posicao"]);
 
@@ -195,9 +209,9 @@
 
         $.ajaxSetup({ async: true });
         $.when($.post("/Apostas/Votar", { idJogo, idTime, posicao}, null)).then(function () {
-           
+
         });
 
-       
+
     }
-</script>
+                </script>
