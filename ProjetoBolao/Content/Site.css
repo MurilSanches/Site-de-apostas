@@ -574,3 +574,48 @@ s
     }
 
 
+
+
+    /*IMAGEM INFINITA*/
+
+.overlay {
+    position: absolute;
+    background-color: #edefee;
+    background-image: url('../img/codepen.png');
+    -webkit-animation: 80s scroll infinite linear;
+    -moz-animation: 80s scroll infinite linear;
+    -o-animation: 80s scroll infinite linear;
+    animation: 80s scroll infinite linear;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+@-webkit-keyframes scroll {
+    100% {
+        background-position: 0px -3000px;
+    }
+}
+
+@-moz-keyframes scroll {
+    100% {
+        background-position: 0px -3000px;
+    }
+}
+
+@-o-keyframes scroll {
+    100% {
+        background-position: 0px -3000px;
+    }
+}
+
+@-ms-keyframes scroll {
+    100% {
+        background-position: 0px -3000px;
+    }
+}
+
+@keyframes scroll {
+    100% {
+        background-position: 0px -3000px;
+    }
+}
