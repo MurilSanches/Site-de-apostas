@@ -581,7 +581,7 @@ s
 .overlay {
     position: absolute;
     background-color: #edefee;
-    background-image: url('../img/codepen.png');
+    background-image: url('../img/fundo.png');
     -webkit-animation: 80s scroll infinite linear;
     -moz-animation: 80s scroll infinite linear;
     -o-animation: 80s scroll infinite linear;
