@@ -21,7 +21,8 @@
             <h1>Todos os jogos</h1>
         </div>
         <form>
-            <div class="container-fluid">
+            <div class="container-fluid" id="div">
+
                 @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
                 {
                     if (j.Ocorreu == 1)
@@ -82,8 +83,8 @@
                         porcentagemEmpate = Math.Round((qtdEmpate / double.Parse(votos.Count() + "") * 100));
 
 
-                    }
-                    <ul class="jogos">
+                    } 
+                    <ul class="jogos" id="lista">
                         <li>
                             <input type="hidden" value="@timeA.NomeTime+@timeB.NomeTime" class="inputNomeTimes" />
                             <div class="card-group">
@@ -185,14 +186,12 @@
                                             @porcentagemB%
                                         </div>
                                     </div><br />
-                                }
-                            </li>
 
+                                }
+
+                            </li>
                         }
                     </ul>
-                    <br />
-                    <br />
-                    <br />
                 }
 
             </div>
@@ -201,6 +200,8 @@
 </section>
 
 <script>
+    var lis = $("li");
+
     window.onload = function () {
         $(document).scrollTop(@Session["posicao"]);
 
@@ -221,13 +222,36 @@
 
     selecionarJogo = function (times) {
         var timeSelecionado = times.value;
-        var inputs = $(".inputNomeTimes");
-        var inputRemover = inputRemover[10]
+        var div = $("#div");
 
-        for (var i = 0; i < inputs.length; i++) {
-            var nomes = inputs[i].value.split("+");
-            if (nomes[0] != timeSelecionado || nomes[1] != timeSelecionado)
-                inputRemover = i;
+        if (timeSelecionado == "") {
+            div.remove(".jogos");
+        }
+        else {
+            var inputs = $(".inputNomeTimes");
+            var inputRemover = [];
+            var tamanho = 0;
+
+            for (var i = 0; i < inputs.length; i = i + 2) {
+                var nomes;
+                if (i == 0)
+                    nomes = inputs[i].value.split("+");
+                else
+                    nomes = inputs[i - 1].value.split("+");
+                if (nomes[0] != timeSelecionado && nomes[1] != timeSelecionado) {
+
+                    inputRemover[tamanho] = i;
+                    tamanho++;
+                    inputRemover[tamanho] = i + 1;
+                    tamanho++;
+                }
+            }  
+
+            var node = document.getElementById("div");
+
+            for (var i = 0; i < inputRemover.length; i++) {
+                node.removeChild(node.childNodes[inputRemover[i]]);
+            }
         }
     }
 
