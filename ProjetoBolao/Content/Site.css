@@ -600,7 +600,7 @@ s
 .overlay {
     position: absolute;
     background-color: #edefee;
-    background-image: url('../img/fundo.png');
+    background-image: url('../img/fundo(1).png');
     -webkit-animation: 80s scroll infinite linear;
     -moz-animation: 80s scroll infinite linear;
     -o-animation: 80s scroll infinite linear;
