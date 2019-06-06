@@ -57,11 +57,30 @@ namespace ProjetoBolao.Controllers
         {
             return Json(JogoDAO.JogosTimes(nomeTime));
         }
-
+        
         [HttpPost]
         public JsonResult TodosJogos()
         {
             return Json(JogoDAO.ListaJogo());
+        }
+
+        [HttpPost]
+        public JsonResult Votos()
+        {
+            return Json(VotacaoDAO.Lista());
+        }
+
+        [HttpPost]
+        public JsonResult VotoDoUsuario(int id)
+        {
+            return Json(VotacaoDAO.ListaDeVotosDoUsuario(id));
+        }
+
+
+        [HttpPost]
+        public JsonResult Usuario()
+        {
+            return Json((Usuario)Session["usuarioLogado"]);
         }
     }
 }

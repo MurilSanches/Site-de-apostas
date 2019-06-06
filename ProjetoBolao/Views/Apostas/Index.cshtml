@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Apostas.cshtml";
     double porcentagemA = 0, porcentagemB = 0, porcentagemEmpate = 0;
+    int id;
 }
 
 <section id="aposta">
@@ -186,13 +187,9 @@
                                             @porcentagemB%
                                         </div>
                                     </div><br />
-
                                 }
-
                             </li>
                         }
-
-
                     }
                 </ul>
             </div>
@@ -221,17 +218,22 @@
         });
     }
 
-    selecionarJogo = function (times) {
+    selecionarJogo = function (times)
+    {
         var nomeTime = times.value;
 
-        if (nomeTime == "") {
-            $.post("/Apostas/TodosJogos", function (resposta) {
+        if (nomeTime == "")
+        {
+            $.post("/Apostas/TodosJogos", function (resposta)
+            {
                 $("#lista").remove();
                 $("#div").append("<ul id='lista' class='jogos'></ul>");
 
-                for (var i = 0; i < resposta.length; i++) {
+                for (var i = 0; i < resposta.length; i++)
+                {
                     var j = resposta[i];
-                    if (j.Ocorreu == 0) {
+                    if (j.Ocorreu == 0)
+                    {
 
                         $.post("/Apostas/Time", { j }, function (resp) {
 
@@ -242,61 +244,112 @@
                                 "<div class='card-header'>" + resp[0].NomeTime + "</div>" +
                                 "<div class='card-body'>" +
                                 " <img src=" + resp[0].Foto + " alt='Photo of sunset'>" +
-                                   " </div> " +
+                                " </div> " +
                                 "</div>" +
                                 "<div class='card'>" +
                                 " <div class='card-header'>" + resp[1].NomeTime + "</div> " +
-                                    "<div class='card-body '> " +
-                                       " <img src="+resp[1].Foto+" alt='Photo of sunset'> " +
-                                   " </div> " +
+                                "<div class='card-body '> " +
+                                " <img src=" + resp[1].Foto + " alt='Photo of sunset'> " +
+                                " </div> " +
                                 "</div> " +
-                             "</div> " +
+                                "</div> " +
                                 "</li>");
-                            @if(Session["usuarioLogado"] == null)
+                            @if (Session["usuarioLogado"] == null)
                             {
                                 @:$("#lista").append("<li><br />Quer votar, cadastra-se <a href='/Cadastro'>clicando aqui </a> e comece a apostar <br /><br /></li>");
+
+                            }
+                            else
+                            {
+                                @:$.post("/Apostas/Usuario", function(user)
+                                @:{
+                                @:    $.post("/Apostas/Votos", function (res)
+                                @:    {
+                                @:      var id = user.Id;
+                                @:      $.post("/Apostas/VotoDoUsuario", { id }, function (r) {
+                                @:          
+                                @:          Object obj;
+                                @:          for (var i = 0; i < r.length; i++)
+                                @:               if (r[i].CodJogo == j.Id)
+                                @:                   obj = r[i];
+                                @:          $("#lista").append("< li> " +
+                                @:          "<br />" +
+                                @:          "<div class='form-row'>" +
+                                @:          "<div class='form-group col-md-4'>" +
+                                @:          "");
+                                @:      });
+                                @:    });
+                                @:});
+                            }
+                         });
+                    }
+                }
+            });
+        }
+        else {
+            $.post("/Apostas/JogoTime", { nomeTime }, function (resposta)
+            {
+                $("#lista").remove();
+                $("#div").append("<ul id='lista' class='jogos'></ul>");
+
+                for (var i = 0; i < resposta.length; i++)
+                {
+                    var j = resposta[i];
+                    if (j.Ocorreu == 0) {
+
+                        $.post("/Apostas/Time", { j }, function (resp)
+                        {
+                            $("#lista").append("<li>" +
+                                "<input type= 'hidden' value=" + resp[0].NomeTime + "+" + resp[1].NomeTime + " class='inputNomeTimes' /> " +
+                                "<div class='card-group'> " +
+                                "<div class='card'>" +
+                                "<div class='card-header'>" + resp[0].NomeTime + "</div>" +
+                                "<div class='card-body'>" +
+                                " <img src=" + resp[0].Foto + " alt='Photo of sunset'>" +
+                                " </div> " +
+                                "</div>" +
+                                "<div class='card'>" +
+                                " <div class='card-header'>" + resp[1].NomeTime + "</div> " +
+                                "<div class='card-body '> " +
+                                " <img src=" + resp[1].Foto + " alt='Photo of sunset'> " +
+                                " </div> " +
+                                "</div> " +
+                                "</div> " +
+                                "</li>");
+                           @if (Session["usuarioLogado"] == null)
+                            {
+                                @:$("#lista").append("<li><br />Quer votar, cadastra-se <a href='/Cadastro'>clicando aqui </a> e comece a apostar <br /><br /></li>");
+
+                            }
+                            else
+                            {
+                                @:$.post("/Apostas/Usuario", function(user)
+                                @:{
+                                @:   alert(user);
+                                @:
+                                @:    $.post("/Apostas/Votos", function (res)
+                                @:    {
+                                @:          var id = user.Id;
+                                @:          alert(res);
+                                @:
+                                @:      $.post("/Apostas/VotoDoUsuario", { id }, function (r) {
+                                @:
+                                @:          alert(r);
+                                @:
+                                @:          //$("#lista").append("< li> " +
+                                @:          //"<br />" +
+                                @:          //"<div class='form-row'>" +
+                                @:          //"<div class='form-group col-md-4'>" +
+                                @:           //"");
+                                @:      });
+                                @:    });
+                                @:});
                             }
                         });
                     }
                 }
             });
         }
-        else
-            $.post("/Apostas/JogoTime", { nomeTime }, function (resposta) {
-                $("#lista").remove();
-                $("#div").append("<ul id='lista' class='jogos'></ul>");
-
-                for (var i = 0; i < resposta.length; i++) {
-                    var j = resposta[i];
-                    if (j.Ocorreu == 0) {
-
-                        $.post("/Apostas/Time", { j }, function (resp) {
-
-                            $("#lista").append("<li>" +
-                                "<input type= 'hidden' value=" + resp[0].NomeTime + "+" + resp[1].NomeTime + " class='inputNomeTimes' /> " +
-                                "<div class='card-group'> " +
-                                "<div class='card'>" +
-                                "<div class='card-header'>" + resp[0].NomeTime + "</div>" +
-                                "<div class='card-body'>" +
-                                " <img src=" + resp[0].Foto + " alt='Photo of sunset'>" +
-                                   " </div> " +
-                                "</div>" +
-                                "<div class='card'>" +
-                                " <div class='card-header'>" + resp[1].NomeTime + "</div> " +
-                                    "<div class='card-body '> " +
-                                       " <img src="+resp[1].Foto+" alt='Photo of sunset'> " +
-                                   " </div> " +
-                                "</div> " +
-                             "</div> " +
-                                "</li>");
-                            @if(Session["usuarioLogado"] == null)
-                            {
-                                @:$("#lista").append("<li><br />Quer votar, cadastra-se <a href='/Cadastro'>clicando aqui </a> e comece a apostar <br /><br /></li>");
-                            }
-                        });
-                    }
-                }
-            });
     }
 
 </script>
