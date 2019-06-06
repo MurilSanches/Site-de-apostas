@@ -1,11 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/_Apostas.cshtml";
     double porcentagemA = 0, porcentagemB = 0, porcentagemEmpate = 0;
-    int id;
 }
 
 <section id="aposta">
-    <div class="overlay">
     <div class="container">
         <form class="form-inline">
             <div class="form-group filtro">
@@ -132,7 +130,7 @@
                                         }
                                         else
                                         {
-                                            <button id="Votar" name="v.CodTimeVotado" class="btn btn-primary btn-block" onclick="votar(this)" value="@timeA.Id+@j.Id">Vitoria do @timeA.NomeTime</button>
+                                            <button id="Votar" name="v.CodTimeVotado" href="#" class="btn btn-primary btn-block" onclick="votar(this)" value="@timeA.Id+@j.Id">Vitoria do @timeA.NomeTime</button>
 
                                         }
                                     </div>
@@ -196,7 +194,6 @@
             </div>
         </form>
     </div>
-  </div>
 </section>
 
 <script>
@@ -269,16 +266,147 @@
                                 @:    {
                                 @:      var id = user.Id;
                                 @:      $.post("/Apostas/VotoDoUsuario", { id }, function (r) {
-                                @:          
-                                @:          Object obj;
+                                @:
+                                @:          var votos = [];
+                                @:          var tamanho = 0;
+                                @:          var vot;
+                                @:          var qtdA = 0; var qtdB = 0; var qtdEmpate = 0;
+                                @:          var porcentagemA = 0; var porcentagemB = 0; var porcentagemEmpate = 0;
+                                @:
                                 @:          for (var i = 0; i < r.length; i++)
                                 @:               if (r[i].CodJogo == j.Id)
-                                @:                   obj = r[i];
-                                @:          $("#lista").append("< li> " +
-                                @:          "<br />" +
-                                @:          "<div class='form-row'>" +
-                                @:          "<div class='form-group col-md-4'>" +
-                                @:          "");
+                                @:                   vot = r[i];
+                                @:          for (var i = 0; i < res.length; i++)
+                                @:               if (res[i].CodJogo == j.Id)
+                                @:               {
+                                @:                  votos[tamanho] = res;
+                                @:                  tamanho++;
+                                @:               }
+                                @:          for (var i = 0; i < votos.length; i++) {
+                                @:              if (votos[i].CodTimeVotado == resp[0].Id)
+                                @:              {
+                                @:                  qtdA++;
+                                @:              }
+                        @:                      else
+                        @:                      {
+                        @:                            if (votos[i].CodTimeVotado == resp[1].Id)
+                        @:                            {
+                        @:                                qtdB++;
+                        @:                            }
+                        @:                            else
+                        @:                            {
+                        @:                                qtdEmpate++;
+                        @:                            }
+                        @:                       }
+                                @:          }
+                                @:
+                                @:          porcentagemA = (qtdA / (votos.length - 1)) * 100;
+                                @:          porcentagemB = (qtdB / (votos.length - 1)) * 100;
+                                @:          porcentagemEmpate = (qtdEmpate / (votos.length - 1)) * 100;
+                                @:
+                                @:          if (vot == null)
+                                @:          {
+                                    @:          $("#lista").append("< li> " +
+                                    @:          "<br />" +
+                                    @:          "<div class='form-row'>" +
+                                    @:          "<div class='form-group col-md-4'>" +
+                                    @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[0].Id + "+" + j.Id + ">Vitoria do " + resp[0].NomeTime + "</button>" +
+                                    @:          "</div>" +
+                                    @:          "<div class='form-group col-md-4'>" +
+                                    @:          "<button id='Votar' name='v.CodTimeVotado' href='#' onclick=" + votar(this) + " class='btn btn- block btn- danger' value=" + 0 + "+" + j.Id + ">Empate</button>" +
+                                    @:          "</div>" +
+                                    @:          "<div class='form-group col-md-4'>" +
+                                    @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[1].Id + "+" + j.Id + ">Vitoria do " + resp[1].NomeTime + "</button>" +
+                                    @:          "</div>" +
+                                    @:          "</div>" +
+                                    @:          "<br /></li>");
+                                @:          }
+                                @:          else {
+                                @:               if (vot.CodTimeVotado == resp[0].Id) {
+                                @:                  $("#lista").append("< li> " +
+                                        @:          "<br />" +
+                                        @:          "<div class='form-row'>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' disabled onclick=" + votar(this) + " value=" + resp[0].Id + "+" + j.Id + ">Vitoria do " + resp[0].NomeTime + " &#10003;</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled onclick=" + votar(this) + " class='btn btn- block btn- danger' value=" + 0 + "+" + j.Id + ">Empate</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[1].Id + "+" + j.Id + ">Vitoria do " + resp[1].NomeTime + "</button>" +
+                                        @:          "</div>" +
+                                        @:          "</div>" +
+                                        @:          "<br />" +
+                                        @:          "<div class='progress' style='height: 20px;'>" +
+                                        @:          "<div class='progress-bar progress-bar-danger' role='progressbar' style='width:"+porcentagemA+"%' aria-valuemin='0' aria-valuemax='100'>"+
+                                        @:          "porcentagemA%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar progress-bar-success' role='progressbar' style='width:"+porcentagemEmpate+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemEmpate%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar  progress-bar-warning' role='progressbar' style='width:"+porcentagemB+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemB%" +
+                                        @:          "</div>" +
+                                        @:          "</div><br /></li>");
+                                @:               }
+
+                                        @:      if (vot.CodTimeVotado == resp[1].Id) {
+                                @:                  $("#lista").append("< li> " +
+                                        @:          "<br />" +
+                                        @:          "<div class='form-row'>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' disabled onclick=" + votar(this) + " value=" + resp[0].Id + "+" + j.Id + ">Vitoria do " + resp[0].NomeTime + "</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled onclick=" + votar(this) + " class='btn btn- block btn- danger' value=" + 0 + "+" + j.Id + ">Empate</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[1].Id + "+" + j.Id + ">Vitoria do " + resp[1].NomeTime + " &#10003;</button>" +
+                                        @:          "</div>" +
+                                        @:          "</div>" +
+                                        @:          "<br />" +
+                                        @:          "<div class='progress' style='height: 20px;'>" +
+                                        @:          "<div class='progress-bar progress-bar-danger' role='progressbar' style='width:"+porcentagemA+"%' aria-valuemin='0' aria-valuemax='100'>"+
+                                        @:          "porcentagemA%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar progress-bar-success' role='progressbar' style='width:"+porcentagemEmpate+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemEmpate%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar  progress-bar-warning' role='progressbar' style='width:"+porcentagemB+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemB%" +
+                                        @:          "</div>" +
+                                        @:          "</div><br /></li>");
+                                @:               }
+
+                                        @:      if (vot.CodTimeVotado == 0) {
+                                @:                  $("#lista").append("< li> " +
+                                        @:          "<br />" +
+                                        @:          "<div class='form-row'>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' disabled onclick=" + votar(this) + " value=" + resp[0].Id + "+" + j.Id + ">Vitoria do " + resp[0].NomeTime + "</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled onclick=" + votar(this) + " class='btn btn- block btn- danger' value=" + 0 + "+" + j.Id + ">Empate &#10003;</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[1].Id + "+" + j.Id + ">Vitoria do " + resp[1].NomeTime + "</button>" +
+                                        @:          "</div>" +
+                                        @:          "</div>" +
+                                        @:          "<br />" +
+                                        @:          "<div class='progress' style='height: 20px;'>" +
+                                        @:          "<div class='progress-bar progress-bar-danger' role='progressbar' style='width:"+porcentagemA+"%' aria-valuemin='0' aria-valuemax='100'>"+
+                                        @:          "porcentagemA%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar progress-bar-success' role='progressbar' style='width:"+porcentagemEmpate+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemEmpate%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar  progress-bar-warning' role='progressbar' style='width:"+porcentagemB+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemB%" +
+                                        @:          "</div>" +
+                                        @:          "</div><br /></li>");
+                                @:               }
+
+                                @:          }
                                 @:      });
                                 @:    });
                                 @:});
@@ -327,22 +455,151 @@
                             {
                                 @:$.post("/Apostas/Usuario", function(user)
                                 @:{
-                                @:   alert(user);
-                                @:
                                 @:    $.post("/Apostas/Votos", function (res)
                                 @:    {
-                                @:          var id = user.Id;
-                                @:          alert(res);
-                                @:
+                                @:      var id = user.Id;
                                 @:      $.post("/Apostas/VotoDoUsuario", { id }, function (r) {
                                 @:
-                                @:          alert(r);
+                                @:          var votos = [];
+                                @:          var tamanho = 0;
+                                @:          var vot;
+                                @:          var qtdA = 0; var qtdB = 0; var qtdEmpate = 0;
+                                @:          var porcentagemA = 0; var porcentagemB = 0; var porcentagemEmpate = 0;
                                 @:
-                                @:          //$("#lista").append("< li> " +
-                                @:          //"<br />" +
-                                @:          //"<div class='form-row'>" +
-                                @:          //"<div class='form-group col-md-4'>" +
-                                @:           //"");
+                                @:          for (var i = 0; i < r.length; i++)
+                                @:               if (r[i].CodJogo == j.Id)
+                                @:                   vot = r[i];
+                                @:          for (var i = 0; i < res.length; i++)
+                                @:               if (res[i].CodJogo == j.Id)
+                                @:               {
+                                @:                  votos[tamanho] = res;
+                                @:                  tamanho++;
+                                @:               }
+                                @:          for (var i = 0; i < votos.length; i++) {
+                                @:              if (votos[i].CodTimeVotado == resp[0].Id)
+                                @:              {
+                                @:                  qtdA++;
+                                @:              }
+                        @:                      else
+                        @:                      {
+                        @:                            if (votos[i].CodTimeVotado == resp[1].Id)
+                        @:                            {
+                        @:                                qtdB++;
+                        @:                            }
+                        @:                            else
+                        @:                            {
+                        @:                                qtdEmpate++;
+                        @:                            }
+                        @:                       }
+                                @:          }
+                                @:
+                                @:          porcentagemA = (qtdA / (votos.length - 1)) * 100;
+                                @:          porcentagemB = (qtdB / (votos.length - 1)) * 100;
+                                @:          porcentagemEmpate = (qtdEmpate / (votos.length - 1)) * 100;
+                                @:
+                                @:          if (vot == null)
+                                @:          {
+                                    @:          $("#lista").append("< li> " +
+                                    @:          "<br />" +
+                                    @:          "<div class='form-row'>" +
+                                    @:          "<div class='form-group col-md-4'>" +
+                                    @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[0].Id + "+" + j.Id + ">Vitoria do " + resp[0].NomeTime + "</button>" +
+                                    @:          "</div>" +
+                                    @:          "<div class='form-group col-md-4'>" +
+                                    @:          "<button id='Votar' name='v.CodTimeVotado' href='#' onclick=" + votar(this) + " class='btn btn- block btn- danger' value=" + 0 + "+" + j.Id + ">Empate</button>" +
+                                    @:          "</div>" +
+                                    @:          "<div class='form-group col-md-4'>" +
+                                    @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[1].Id + "+" + j.Id + ">Vitoria do " + resp[1].NomeTime + "</button>" +
+                                    @:          "</div>" +
+                                    @:          "</div>" +
+                                    @:          "<br /></li>");
+                                @:          }
+                                @:          else {
+                                @:               if (vot.CodTimeVotado == resp[0].Id) {
+                                @:                  $("#lista").append("< li> " +
+                                        @:          "<br />" +
+                                        @:          "<div class='form-row'>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' disabled onclick=" + votar(this) + " value=" + resp[0].Id + "+" + j.Id + ">Vitoria do " + resp[0].NomeTime + " &#10003;</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled onclick=" + votar(this) + " class='btn btn- block btn- danger' value=" + 0 + "+" + j.Id + ">Empate</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[1].Id + "+" + j.Id + ">Vitoria do " + resp[1].NomeTime + "</button>" +
+                                        @:          "</div>" +
+                                        @:          "</div>" +
+                                        @:          "<br />" +
+                                        @:          "<div class='progress' style='height: 20px;'>" +
+                                        @:          "<div class='progress-bar progress-bar-danger' role='progressbar' style='width:"+porcentagemA+"%' aria-valuemin='0' aria-valuemax='100'>"+
+                                        @:          "porcentagemA%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar progress-bar-success' role='progressbar' style='width:"+porcentagemEmpate+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemEmpate%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar  progress-bar-warning' role='progressbar' style='width:"+porcentagemB+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemB%" +
+                                        @:          "</div>" +
+                                        @:          "</div><br /></li>");
+                                @:               }
+
+                                        @:      if (vot.CodTimeVotado == resp[1].Id) {
+                                @:                  $("#lista").append("< li> " +
+                                        @:          "<br />" +
+                                        @:          "<div class='form-row'>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' disabled onclick=" + votar(this) + " value=" + resp[0].Id + "+" + j.Id + ">Vitoria do " + resp[0].NomeTime + "</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled onclick=" + votar(this) + " class='btn btn- block btn- danger' value=" + 0 + "+" + j.Id + ">Empate</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[1].Id + "+" + j.Id + ">Vitoria do " + resp[1].NomeTime + " &#10003;</button>" +
+                                        @:          "</div>" +
+                                        @:          "</div>" +
+                                        @:          "<br />" +
+                                        @:          "<div class='progress' style='height: 20px;'>" +
+                                        @:          "<div class='progress-bar progress-bar-danger' role='progressbar' style='width:"+porcentagemA+"%' aria-valuemin='0' aria-valuemax='100'>"+
+                                        @:          "porcentagemA%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar progress-bar-success' role='progressbar' style='width:"+porcentagemEmpate+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemEmpate%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar  progress-bar-warning' role='progressbar' style='width:"+porcentagemB+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemB%" +
+                                        @:          "</div>" +
+                                        @:          "</div><br /></li>");
+                                @:               }
+
+                                        @:      if (vot.CodTimeVotado == 0) {
+                                @:                  $("#lista").append("< li> " +
+                                        @:          "<br />" +
+                                        @:          "<div class='form-row'>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' class='btn btn-primary btn-block' disabled onclick=" + votar(this) + " value=" + resp[0].Id + "+" + j.Id + ">Vitoria do " + resp[0].NomeTime + "</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled onclick=" + votar(this) + " class='btn btn- block btn- danger' value=" + 0 + "+" + j.Id + ">Empate &#10003;</button>" +
+                                        @:          "</div>" +
+                                        @:          "<div class='form-group col-md-4'>" +
+                                        @:          "<button id='Votar' name='v.CodTimeVotado' href='#' disabled class='btn btn-primary btn-block' onclick=" + votar(this) + " value=" + resp[1].Id + "+" + j.Id + ">Vitoria do " + resp[1].NomeTime + "</button>" +
+                                        @:          "</div>" +
+                                        @:          "</div>" +
+                                        @:          "<br />" +
+                                        @:          "<div class='progress' style='height: 20px;'>" +
+                                        @:          "<div class='progress-bar progress-bar-danger' role='progressbar' style='width:"+porcentagemA+"%' aria-valuemin='0' aria-valuemax='100'>"+
+                                        @:          "porcentagemA%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar progress-bar-success' role='progressbar' style='width:"+porcentagemEmpate+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemEmpate%" +
+                                        @:          "</div>" +
+                                        @:          "<div class='progress-bar  progress-bar-warning' role='progressbar' style='width:"+porcentagemB+"%' aria-valuemin='0' aria-valuemax='100'>" +
+                                        @:          "porcentagemB%" +
+                                        @:          "</div>" +
+                                        @:          "</div><br /></li>");
+                                @:               }
+
+                                @:          }
                                 @:      });
                                 @:    });
                                 @:});
