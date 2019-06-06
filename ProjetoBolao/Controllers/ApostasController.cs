@@ -46,5 +46,22 @@ namespace ProjetoBolao.Controllers
             JogoDAO.Altera(j);
             return Json(true);
         }
+
+        public JsonResult Time(Jogo j)
+        {
+            return Json(JogoDAO.Time(j));
+        }
+
+        [HttpPost]
+        public JsonResult JogoTime(string nomeTime)
+        {
+            return Json(JogoDAO.JogosTimes(nomeTime));
+        }
+
+        [HttpPost]
+        public JsonResult TodosJogos()
+        {
+            return Json(JogoDAO.ListaJogo());
+        }
     }
 }

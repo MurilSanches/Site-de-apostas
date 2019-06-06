@@ -102,5 +102,39 @@ namespace ProjetoBolao.DAO
                 return contexto.Jogo.FirstOrDefault(u => u.Id == id);
             }
         }
+
+        public static IList<Jogo> JogosTimes(string nome)
+        {
+            using (var contexto = new SiteContext())
+            {
+                var list = new List<Jogo>();
+                var todosJogos = ListaJogo();
+
+                foreach (Jogo j in todosJogos)
+                {
+                    var timeA = TimeDAO.Time(j.CodTimeA);
+                    var timeB = TimeDAO.Time(j.CodTimeB);
+
+                    if (timeA.NomeTime == nome || timeB.NomeTime == nome)
+                        list.Add(j);
+                }
+
+                return list;
+            }
+        }
+
+        public static IList<Time> Time(Jogo j)
+        {
+            using(var contexto = new SiteContext())
+            {
+                var list = new List<Time>();
+                var todosJogos = ListaJogo();
+                                
+                list.Add(TimeDAO.Time(j.CodTimeA));
+                list.Add(TimeDAO.Time(j.CodTimeB));                    
+
+                return list;
+            }
+        }
     }
 }

@@ -22,69 +22,69 @@
         </div>
         <form>
             <div class="container-fluid" id="div">
-
-                @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
-                {
-                    if (j.Ocorreu == 1)
+                <ul class="jogos" id="lista">
+                    @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
                     {
-                        continue;
-                    }
-
-                    List<ProjetoBolao.Models.Votacao> votos = new List<ProjetoBolao.Models.Votacao>();
-                    ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["UsuarioLogado"];
-                    ProjetoBolao.Models.Votacao vot = null;
-                    ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
-                    ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
-
-                    double qtdA = 0;
-                    double qtdB = 0;
-                    double qtdEmpate = 0;
-
-
-                    if (ViewBag.Votos != null)
-                    {
-                        foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
+                        if (j.Ocorreu == 1)
                         {
-                            if (v.CodJogo == j.Id)
-                            {
-                                vot = v;
-                            }
-
-                        }
-                        foreach (ProjetoBolao.Models.Votacao v in ViewBag.TodosOsVotos)
-                        {
-                            if (v.CodJogo == j.Id)
-                            {
-                                votos.Add(v);
-                            }
+                            continue;
                         }
 
-                        foreach (ProjetoBolao.Models.Votacao v in votos)
+                        List<ProjetoBolao.Models.Votacao> votos = new List<ProjetoBolao.Models.Votacao>();
+                        ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["UsuarioLogado"];
+                        ProjetoBolao.Models.Votacao vot = null;
+                        ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
+                        ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
+
+                        double qtdA = 0;
+                        double qtdB = 0;
+                        double qtdEmpate = 0;
+
+
+                        if (ViewBag.Votos != null)
                         {
-                            if (v.CodTimeVotado == timeA.Id)
+                            foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
                             {
-                                qtdA++;
-                            }
-                            else
-                            {
-                                if (v.CodTimeVotado == timeB.Id)
+                                if (v.CodJogo == j.Id)
                                 {
-                                    qtdB++;
+                                    vot = v;
+                                }
+
+                            }
+                            foreach (ProjetoBolao.Models.Votacao v in ViewBag.TodosOsVotos)
+                            {
+                                if (v.CodJogo == j.Id)
+                                {
+                                    votos.Add(v);
+                                }
+                            }
+
+                            foreach (ProjetoBolao.Models.Votacao v in votos)
+                            {
+                                if (v.CodTimeVotado == timeA.Id)
+                                {
+                                    qtdA++;
                                 }
                                 else
                                 {
-                                    qtdEmpate++;
+                                    if (v.CodTimeVotado == timeB.Id)
+                                    {
+                                        qtdB++;
+                                    }
+                                    else
+                                    {
+                                        qtdEmpate++;
+                                    }
                                 }
                             }
+
+                            porcentagemA = Math.Round((qtdA / double.Parse(votos.Count() + "") * 100));
+                            porcentagemB = Math.Round((qtdB / double.Parse(votos.Count() + "") * 100));
+                            porcentagemEmpate = Math.Round((qtdEmpate / double.Parse(votos.Count() + "") * 100));
+
+
                         }
 
-                        porcentagemA = Math.Round((qtdA / double.Parse(votos.Count() + "") * 100));
-                        porcentagemB = Math.Round((qtdB / double.Parse(votos.Count() + "") * 100));
-                        porcentagemEmpate = Math.Round((qtdEmpate / double.Parse(votos.Count() + "") * 100));
-
-
-                    } 
-                    <ul class="jogos" id="lista">
                         <li>
                             <input type="hidden" value="@timeA.NomeTime+@timeB.NomeTime" class="inputNomeTimes" />
                             <div class="card-group">
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </li>
-                        @if (Session["usuarioLogado"] == null)
+                        @:@if (Session["usuarioLogado"] == null)
                         {
 
                             <li><br />Quer votar, cadastra-se @Html.ActionLink("clicando aqui", "Index", "Cadastro") e comece a apostar <br /><br /></li>
@@ -191,9 +191,10 @@
 
                             </li>
                         }
-                    </ul>
-                }
 
+
+                    }
+                </ul>
             </div>
         </form>
     </div>
@@ -221,38 +222,81 @@
     }
 
     selecionarJogo = function (times) {
-        var timeSelecionado = times.value;
-        var div = $("#div");
+        var nomeTime = times.value;
 
-        if (timeSelecionado == "") {
-            div.remove(".jogos");
-        }
-        else {
-            var inputs = $(".inputNomeTimes");
-            var inputRemover = [];
-            var tamanho = 0;
+        if (nomeTime == "") {
+            $.post("/Apostas/TodosJogos", function (resposta) {
+                $("#lista").remove();
+                $("#div").append("<ul id='lista' class='jogos'></ul>");
 
-            for (var i = 0; i < inputs.length; i = i + 2) {
-                var nomes;
-                if (i == 0)
-                    nomes = inputs[i].value.split("+");
-                else
-                    nomes = inputs[i - 1].value.split("+");
-                if (nomes[0] != timeSelecionado && nomes[1] != timeSelecionado) {
+                for (var i = 0; i < resposta.length; i++) {
+                    var j = resposta[i];
+                    if (j.Ocorreu == 0) {
 
-                    inputRemover[tamanho] = i;
-                    tamanho++;
-                    inputRemover[tamanho] = i + 1;
-                    tamanho++;
+                        $.post("/Apostas/Time", { j }, function (resp) {
+
+                            $("#lista").append("<li>" +
+                                "<input type= 'hidden' value=" + resp[0].NomeTime + "+" + resp[1].NomeTime + " class='inputNomeTimes' /> " +
+                                "<div class='card-group'> " +
+                                "<div class='card'>" +
+                                "<div class='card-header'>" + resp[0].NomeTime + "</div>" +
+                                "<div class='card-body'>" +
+                                " <img src=" + resp[0].Foto + " alt='Photo of sunset'>" +
+                                   " </div> " +
+                                "</div>" +
+                                "<div class='card'>" +
+                                " <div class='card-header'>" + resp[1].NomeTime + "</div> " +
+                                    "<div class='card-body '> " +
+                                       " <img src="+resp[1].Foto+" alt='Photo of sunset'> " +
+                                   " </div> " +
+                                "</div> " +
+                             "</div> " +
+                                "</li>");
+                            @if(Session["usuarioLogado"] == null)
+                            {
+                                @:$("#lista").append("<li><br />Quer votar, cadastra-se <a href='/Cadastro'>clicando aqui </a> e comece a apostar <br /><br /></li>");
+                            }
+                        });
+                    }
                 }
-            }  
-
-            var node = document.getElementById("div");
-
-            for (var i = 0; i < inputRemover.length; i++) {
-                node.removeChild(node.childNodes[inputRemover[i]]);
-            }
+            });
         }
+        else
+            $.post("/Apostas/JogoTime", { nomeTime }, function (resposta) {
+                $("#lista").remove();
+                $("#div").append("<ul id='lista' class='jogos'></ul>");
+
+                for (var i = 0; i < resposta.length; i++) {
+                    var j = resposta[i];
+                    if (j.Ocorreu == 0) {
+
+                        $.post("/Apostas/Time", { j }, function (resp) {
+
+                            $("#lista").append("<li>" +
+                                "<input type= 'hidden' value=" + resp[0].NomeTime + "+" + resp[1].NomeTime + " class='inputNomeTimes' /> " +
+                                "<div class='card-group'> " +
+                                "<div class='card'>" +
+                                "<div class='card-header'>" + resp[0].NomeTime + "</div>" +
+                                "<div class='card-body'>" +
+                                " <img src=" + resp[0].Foto + " alt='Photo of sunset'>" +
+                                   " </div> " +
+                                "</div>" +
+                                "<div class='card'>" +
+                                " <div class='card-header'>" + resp[1].NomeTime + "</div> " +
+                                    "<div class='card-body '> " +
+                                       " <img src="+resp[1].Foto+" alt='Photo of sunset'> " +
+                                   " </div> " +
+                                "</div> " +
+                             "</div> " +
+                                "</li>");
+                            @if(Session["usuarioLogado"] == null)
+                            {
+                                @:$("#lista").append("<li><br />Quer votar, cadastra-se <a href='/Cadastro'>clicando aqui </a> e comece a apostar <br /><br /></li>");
+                            }
+                        });
+                    }
+                }
+            });
     }
 
 </script>
