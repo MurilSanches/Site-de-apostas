@@ -32,7 +32,6 @@
     <header>
         <div id="mySidenav" class="sidenav">
 
-
             @{
                 if (u != null)
                 {
@@ -52,10 +51,7 @@
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
 
                 }
-            }
 
-
-            @{
                 if (u == null)
                 {
                     <ul class="link">
@@ -91,7 +87,7 @@
                 }
 
             </script>
-        </div>
+        </div>        
         <div class="container">
             <div id="logo">
                 <h1><span class="highlight">BET</span>TING</h1>
@@ -104,8 +100,11 @@
                 </ul>
             </nav>
         </div>
+
     </header>
+    <div class="overlay">
     @RenderBody()
+    </div>
     <footer>
         <p>BETTING, Copyright &copy; 2019</p>
     </footer>
