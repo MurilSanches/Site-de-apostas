@@ -6,80 +6,77 @@
 <section id="aposta">
     <div class="container">
         @*<nav id="menu-lateral">
-            <ul class="esportes">
-                <li>Esportes</li>
-            </ul>
-        </nav>*@
+                <ul class="esportes">
+                    <li>Esportes</li>
+                </ul>
+            </nav>*@
         <div id="main-col">
             <h1>Todos os jogos</h1>
         </div>
-        @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
-        {
-            if (j.Ocorreu == 1)
-            {
-                continue;
-            }
-
-            List<ProjetoBolao.Models.Votacao> votos = new List<ProjetoBolao.Models.Votacao>();
-            ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["UsuarioLogado"];
-            ProjetoBolao.Models.Votacao vot = null;
-            ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
-            ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
-
-            double qtdA = 0;
-            double qtdB = 0;
-            double qtdEmpate = 0;
-
-
-            if (ViewBag.Votos != null)
-            {
-                foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
-                {
-                    if (v.CodJogo == j.Id)
+        <form>
+            <div class="container-fluid">
+                <ul class="jogos">
+                    @foreach (ProjetoBolao.Models.Jogo j in ViewBag.Jogos)
                     {
-                        vot = v;
-                    }
-
-                }
-                foreach (ProjetoBolao.Models.Votacao v in ViewBag.TodosOsVotos)
-                {
-                    if (v.CodJogo == j.Id)
-                    {
-                        votos.Add(v);
-                    }
-                }
-
-                foreach (ProjetoBolao.Models.Votacao v in votos)
-                {
-                    if (v.CodTimeVotado == timeA.Id)
-                    {
-                        qtdA++;
-                    }
-                    else
-                    {
-                        if (v.CodTimeVotado == timeB.Id)
+                        if (j.Ocorreu == 1)
                         {
-                            qtdB++;
+                            continue;
                         }
-                        else
+
+                        List<ProjetoBolao.Models.Votacao> votos = new List<ProjetoBolao.Models.Votacao>();
+                        ProjetoBolao.Models.Usuario u = (ProjetoBolao.Models.Usuario)Session["UsuarioLogado"];
+                        ProjetoBolao.Models.Votacao vot = null;
+                        ProjetoBolao.Models.Time timeA = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeA);
+                        ProjetoBolao.Models.Time timeB = ProjetoBolao.DAO.TimeDAO.Time(j.CodTimeB);
+
+                        double qtdA = 0;
+                        double qtdB = 0;
+                        double qtdEmpate = 0;
+
+
+                        if (ViewBag.Votos != null)
                         {
-                            qtdEmpate++;
+                            foreach (ProjetoBolao.Models.Votacao v in ViewBag.Votos)
+                            {
+                                if (v.CodJogo == j.Id)
+                                {
+                                    vot = v;
+                                }
+
+                            }
+                            foreach (ProjetoBolao.Models.Votacao v in ViewBag.TodosOsVotos)
+                            {
+                                if (v.CodJogo == j.Id)
+                                {
+                                    votos.Add(v);
+                                }
+                            }
+
+                            foreach (ProjetoBolao.Models.Votacao v in votos)
+                            {
+                                if (v.CodTimeVotado == timeA.Id)
+                                {
+                                    qtdA++;
+                                }
+                                else
+                                {
+                                    if (v.CodTimeVotado == timeB.Id)
+                                    {
+                                        qtdB++;
+                                    }
+                                    else
+                                    {
+                                        qtdEmpate++;
+                                    }
+                                }
+                            }
+
+                            porcentagemA = Math.Round((qtdA / double.Parse(votos.Count() + "") * 100));
+                            porcentagemB = Math.Round((qtdB / double.Parse(votos.Count() + "") * 100));
+                            porcentagemEmpate = Math.Round((qtdEmpate / double.Parse(votos.Count() + "") * 100));
+
+
                         }
-                    }
-                }
-
-                porcentagemA = Math.Round((qtdA / double.Parse(votos.Count() + "") * 100));
-                porcentagemB = Math.Round((qtdB / double.Parse(votos.Count() + "") * 100));
-                porcentagemEmpate = Math.Round((qtdEmpate / double.Parse(votos.Count() + "") * 100));
-
-
-            }
-
-
-            <form>
-                <div class="container-fluid">
-                    <input type="hidden" name="v.CodJogo" value="@j.Id">
-                    <ul class="jogos">
                         <li>
                             <div class="card-group">
                                 <!-- Card 1 -->
@@ -98,10 +95,10 @@
                                 </div>
                             </div>
                         </li>
-                        @if (Session["usuarioLogado"] == null)
+                        @: @if (Session["usuarioLogado"] == null)
                         {
-                            
-                        <li><br />Quer votar, cadastra-se @Html.ActionLink("clicando aqui", "Index", "Cadastro") e comece a apostar <br /><br /></li>
+
+                            <li><br />Quer votar, cadastra-se @Html.ActionLink("clicando aqui", "Index", "Cadastro") e comece a apostar <br /><br /></li>
                         }
                         else
                         {
@@ -182,19 +179,19 @@
                                     </div><br />
                                 }
                             </li>
-                            }
-                        </ul>
-                        <br />
-                        <br />
-                        <br />
-                    </div>
-                </form>
-            
                         }
-                    </div>
-                </section>
+                    @: </ul>
+                    <br />
+                    <br />
+                    <br />
+                @: </div>
+            @:      </form>
 
-                <script>
+        }
+                </div>
+            </section>
+
+            <script>
     window.onload = function () {
         $(document).scrollTop(@Session["posicao"]);
 
@@ -214,4 +211,4 @@
 
 
     }
-                </script>
+            </script>
